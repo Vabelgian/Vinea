@@ -1,0 +1,534 @@
+[
+  {
+    "id": 1,
+    "nom": "Podere Il Carnasciale – Il Carnasciale 2020",
+    "photo": "images/il-carnasciale-2020.jpg",
+    "couleur": "rouge",
+    "pays": "Italie",
+    "region": "Toscane",
+    "cepage": "Caberlot",
+    "style": "Élégant, complexe, tanins fins, vin de dégustation avec belle évolution",
+    "statut": "cave",
+    "stock": 1,
+    "profil": "Podere Il Carnasciale est un domaine toscan culte entièrement dédié au Caberlot, un croisement naturel entre Cabernet Franc et Merlot, cultivé exclusivement sur la propriété. C'est ce qui rend ces vins extrêmement rares et recherchés. Il Carnasciale est l'expression plus accessible du domaine, combinant intensité, structure et une approche déjà très aboutie dans le millésime 2020 : sombre, épicé et sculpté.",
+    "notes_experts": { "wine_advocate": "93/100", "jancis_robinson": "17+/20", "james_suckling": "93/100", "peak_wines": "93/100" },
+    "degustation": {
+      "couleur": "Ruby quasiment encre",
+      "nez": "Cassis, prune et cerise noire, herbes sauvages, graphite, tabac, pointe de poivre",
+      "bouche": "Concentré, vertical, savoureux, minéral persistant, finale légèrement saline"
+    },
+    "technique": {
+      "vinification": "Fermentation en cuves inox et bois, longue macération, élevage ~18 mois en barriques de chêne français (partiellement neuves)",
+      "classification": "Toscana IGT",
+      "garde": "10–15 ans",
+      "carafage": "Au moins 1h, évolution dans le verre recommandée",
+      "temperature": "16–18°C",
+      "accords": "Viandes rouges, plats mijotés, cuisine toscane"
+    },
+    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+  },
+  {
+    "id": 2,
+    "nom": "Andrius Sauvignon Blanc Alto Adige DOC",
+    "photo": "images/andrius-sauvignon-blanc-alto-adige-doc.jpg",
+    "couleur": "blanc",
+    "pays": "Italie",
+    "region": "Alto Adige",
+    "cepage": "60% Pinot Bianco, 30% Chardonnay, 10% Sauvignon Blanc",
+    "style": "Tendu, cristallin, aromatique",
+    "statut": "cave",
+    "stock": 1,
+    "profil": "Ce vin est vraiment l'école Alto Adige : pureté, fraîcheur, précision aromatique, gros travail sur la minéralité. La coopérative Cantina Terlano a été fondée en 1893 et est aujourd'hui l'une des références de l'Alto Adige. Leur philosophie repose sur des vins de grande longévité, grâce à une vinification sur lies prolongée.",
+    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "95/100", "peak_wines": "93/100" },
+    "degustation": {
+      "couleur": "Paille à reflets verts",
+      "nez": "Pomme verte et pêche blanche, avec des nuances de mélisse et menthe, puis des notes persistantes de pêche en bouche",
+      "bouche": "Concentrée et fraîche avec un fort extrait, finale longue et saline"
+    },
+    "technique": {
+      "vinification": "Vinification sur lies prolongée — souvent plusieurs années — qui développe des arômes secondaires et tertiaires complexes",
+      "classification": "Alto Adige DOC Sauvignon Blanc",
+      "garde": "5–8 ans",
+      "carafage": "Non",
+      "temperature": "9–11°C",
+      "accords": "Ceviche, sashimi, asperges vertes, burrata citronnée, sole meunière, risotto aux herbes, fromage de chèvre frais"
+    },
+    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+  },
+  {
+    "id": 3,
+    "nom": "Livio Felluga \"Potentilla\" Sauvignon Blanc",
+    "photo": "images/livio-felluga-potentilla-sauvignon-blanc.jpg",
+    "couleur": "blanc",
+    "pays": "Italie",
+    "region": "Friuli Colli Orientali",
+    "cepage": "Sauvignon Blanc",
+    "style": "Large, profond, gastronomique",
+    "statut": "cave",
+    "stock": 1,
+    "profil": "Le Potentilla joue dans un registre plus sérieux et plus profond. Livio Felluga est une référence absolue du Frioul. Cuvée mono-cépage, mono-parcelle lancée avec le millésime 2018, issue d'une vigne plantée en 1975 sur les collines de Friuli Colli Orientali.",
+    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "94/100", "peak_wines": "93/100" },
+    "degustation": {
+      "couleur": "Jaune paille clair avec des reflets verdâtres",
+      "nez": "Fleur de sureau, feuilles d'ortie, fleur de prunier, gardénia blanc, pêche blanche, ananas, mangue et crème au citron",
+      "bouche": "Élégant et minéral, avec une levure variétale, des fruits mûrs et plus de texture qu'un simple Sauvignon en acier inoxydable"
+    },
+    "technique": {
+      "vinification": "Macération sur peaux quelques heures, puis fûts de chêne avec fermentation malolactique d'un mois",
+      "classification": "Friuli Colli Orientali DOC Sauvignon Blanc",
+      "garde": "10–15 ans",
+      "carafage": "30 minutes, évolution dans le verre recommandée",
+      "temperature": "10–12°C",
+      "accords": "Volaille à la crème légère, homard, lotte, risotto aux cèpes, turbot, ravioles aux herbes, vieux comté"
+    },
+    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+  },
+  {
+    "id": 4,
+    "nom": "Ridgeback Cabernet Franc 2020",
+    "photo": "images/Ridgeback-Cab-Franc-2020.webp",
+    "couleur": "rouge",
+    "pays": "Afrique du Sud",
+    "region": "Paarl",
+    "cepage": "Cabernet Franc",
+    "style": "Élégant, expressif",
+    "statut": "cave",
+    "stock": 1,
+    "profil": "Cabernet Franc sud-africain élégant et expressif issu de Paarl. Le vin séduit par son équilibre entre fruit rouge mûr, fraîcheur naturelle et notes épicées raffinées. Accessible dès aujourd'hui après aération, il possède néanmoins un potentiel d'évolution intéressant.",
+    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "94/100", "peak_wines": "N/a" },
+    "degustation": {
+      "couleur": "Rubis, rouge profond",
+      "nez": "Arômes de fruits rouges mûrs (cerise, baies), complétés par des touches épicées",
+      "bouche": "Corps présent, tanins modérés, bon équilibre entre fruit et acidité"
+    },
+    "technique": {
+      "vinification": "Maturation en barriques, mélange de fûts de différents âges",
+      "classification": "À compléter",
+      "garde": "3–7 ans",
+      "carafage": "1h minimum",
+      "temperature": "16–18°C",
+      "accords": "Viandes grillées, gibiers, plats corsés, fromages à pâte dure"
+    },
+    "journal": { "date": "25 décembre 2025", "occasion": "Repas de Noël", "avec_quoi": "Filet de canard aux fruits rouges", "ressenti": "Bonne expérience, fort fruité et frais, très expressif au niveau du nez. Le côté épicé ressort vraiment bien", "evolution_verre": "30 minutes de carafage et évolution dans le verre", "note_personnelle": "1ère bouteille déjà agréable. Pas encore à son sommet. Attendre fin 2027 pour apogée. Carafer 1h minimum." }
+  },
+  {
+    "id": 5,
+    "nom": "Orpheus & Raven n°7 Pinotage 2022",
+    "photo": "images/OrpheusTheRaven-No7.jpg",
+    "couleur": "rouge",
+    "pays": "Afrique du Sud",
+    "region": "Simonsberg, Bottelary Hills, Durbanville",
+    "cepage": "Pinotage",
+    "style": "Nerveux, festif",
+    "statut": "cave",
+    "stock": 2,
+    "profil": "Pinotage haut de gamme au style moderne, intense et sophistiqué. Élevé longuement en barriques françaises et américaines, il développe un profil profond mêlant fruits noirs mûrs, violette, cacao, épices douces et nuances toastées. Encore jeune, le vin gagne fortement à être carafé.",
+    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "91/100", "peak_wines": "N/a" },
+    "degustation": {
+      "couleur": "À compléter",
+      "nez": "Baies (blueberry, framboise, mulberry), touches florales (violette, lavande), nuances de chocolat noir, amande grillée, pointe de bois toasté",
+      "bouche": "Entrée ronde, structure tannique élégante, bonne acidité, finale juvénile mais prometteuse"
+    },
+    "technique": {
+      "vinification": "18 mois en barriques (1er, 2e, 3e remplissage ; 50% de fûts neufs)",
+      "classification": "À compléter",
+      "garde": "10–15 ans",
+      "carafage": "1h, évolution dans le verre recommandée",
+      "temperature": "16–18°C",
+      "accords": "Viandes rouges, barbecue, côtes d'agneau, plats fumés"
+    },
+    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+  },
+  {
+    "id": 6,
+    "nom": "Vilafonté Seriously Old Dirt 2020",
+    "photo": "images/vilafontéseriouslyolddirt.png",
+    "couleur": "rouge",
+    "pays": "Afrique du Sud",
+    "region": "Western Cape",
+    "cepage": "86% Cabernet Sauvignon, 8% Merlot, 4% Malbec, 2% Cabernet Franc",
+    "style": "Élégant, grand Bordeaux",
+    "statut": "cave",
+    "stock": 2,
+    "profil": "Assemblage bordelais premium provenant des célèbres sols anciens du Western Cape. Le vin allie puissance maîtrisée, précision et profondeur. Encore dans sa jeunesse, il devrait gagner en complexité et en texture au fil du temps.",
+    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "91/100", "peak_wines": "N/a" },
+    "degustation": {
+      "couleur": "À compléter",
+      "nez": "Cerise noire, prune, épices de boulangerie, vanille, tabac, noisette, touche de réglisse ou de cacao",
+      "bouche": "Vin corsé, tanins présents mais mûrs, acidité soutenant la structure, belle longévité"
+    },
+    "technique": {
+      "vinification": "À compléter",
+      "classification": "À compléter",
+      "garde": "10–15 ans",
+      "carafage": "2–3h, évolution dans le verre recommandée",
+      "temperature": "16–18°C",
+      "accords": "Filet de bœuf Wellington, carré d'agneau rôti au thym, civet de cerf, purée truffée"
+    },
+    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+  },
+  {
+    "id": 7,
+    "nom": "Salvatore M Barbaresco 2021",
+    "photo": "images/salvatore-m-barbaresco-docg-21.webp",
+    "couleur": "rouge",
+    "pays": "Italie",
+    "region": "Piémont",
+    "cepage": "Nebbiolo",
+    "style": "Structuré, floral, gastronomique",
+    "statut": "cave",
+    "stock": 5,
+    "profil": "Le Barbaresco 2021 de Salvatore M. est typiquement dans le style classique du Piémont : du nebbiolo assez pur, structuré mais élégant, avec des tanins présents et une belle fraîcheur. Millésime réputé très réussi dans les Langhe. Un vin qui gagnera à vieillir en cave quelques années.",
+    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "degustation": {
+      "couleur": "Rouge profond",
+      "nez": "Fleurs puis fruits rouges. Arômes tertiaires avec le temps",
+      "bouche": "Tanins fermes, un peu asséchant mais fraîcheur et longueur"
+    },
+    "technique": {
+      "vinification": "À compléter",
+      "classification": "Barbaresco DOCG",
+      "garde": "10–15 ans",
+      "carafage": "2h+, évolution dans le verre recommandée",
+      "temperature": "16–18°C",
+      "accords": "Viande rouge, plats italiens typiques (ragù), volaille noble, plats piémontais et truffes"
+    },
+    "journal": { "date": "28 décembre 2025", "occasion": "Repas de fin d'année", "avec_quoi": "Cuisse de pintade, jus court et champignons", "ressenti": "Vin clairement trop jeune, quelques années de vieillissement en cave feront du bien", "evolution_verre": "Clairement une évolution dans le verre mais limitée", "note_personnelle": "Ouvrir une 2e bouteille en 2028 pas avant" }
+  },
+  {
+    "id": 8,
+    "nom": "Fontanafredda Barolo Serralunga d'Alba 2019",
+    "photo": "images/fontanafredda-barolo-serralunga-dalba-2019.jpg",
+    "couleur": "rouge",
+    "pays": "Italie",
+    "region": "Piémont – Serralunga d'Alba",
+    "cepage": "Nebbiolo",
+    "style": "Puissant, raffiné, gastronomique",
+    "statut": "cave",
+    "stock": 1,
+    "profil": "Ce vin est issu de la commune de Serralunga connue pour ses vins de garde. Un vin qui allie élégance, puissance et potentiel de garde — parfait pour un moment célébratoire.",
+    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "92/100", "peak_wines": "N/a" },
+    "degustation": {
+      "couleur": "À compléter",
+      "nez": "Très expressif, arômes de rose fanée, épices, vanille, sous-bois, cerise, réglisse et cacao",
+      "bouche": "Sec, étonnamment velouté et harmonieux. Bonne structure tannique, acidité équilibrée, finale persistante et élégante"
+    },
+    "technique": {
+      "vinification": "À compléter",
+      "classification": "À compléter",
+      "garde": "10–15 ans",
+      "carafage": "2h+, évolution dans le verre recommandée",
+      "temperature": "18–20°C",
+      "accords": "Viandes rouges grillées ou braisées, gibier, sauces riches, fromages puissants"
+    },
+    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+  },
+  {
+    "id": 9,
+    "nom": "Domaine du Colombier Chablis 1er Cru \"Fourchaume\" 2022",
+    "photo": "images/chablis-1er-cru-fourchaume-domaine-du-colombier-2022.png",
+    "couleur": "blanc",
+    "pays": "France",
+    "region": "Chablis, Bourgogne",
+    "cepage": "Chardonnay",
+    "style": "Minéral, fruité, tendu",
+    "statut": "cave",
+    "stock": 1,
+    "profil": "Le domaine est situé à 4 km de Chablis, dans la commune de Fontenay-Près-Chablis. Fourchaume est l'un des premiers crus les plus réputés de Chablis, avec une exposition favorable au sud et des sols calcaires de haute qualité.",
+    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "92/100", "peak_wines": "N/a" },
+    "degustation": {
+      "couleur": "Jaune caractéristique aux reflets subtils blanc-vert, limpide et vive",
+      "nez": "Généreux, presque tropical, fruits mûrs et croquants, citron et pamplemousse",
+      "bouche": "Sec, avec un soupçon de pierre à feu et une très bonne longueur. Minéralité fraîche, signature classique du Chablis"
+    },
+    "technique": {
+      "vinification": "Sans bois (inox), ce qui préserve toute la pureté et la minéralité caractéristiques du Chablis",
+      "classification": "Chablis 1er Cru AOC",
+      "garde": "6–8 ans",
+      "carafage": "Non",
+      "temperature": "10–12°C",
+      "accords": "Noix de Saint-Jacques, poissons en sauce, viandes blanches, huîtres, fruits de mer, fromage de chèvre frais"
+    },
+    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+  },
+  {
+    "id": 10,
+    "nom": "Domaine Wach Gewurtzaminer \"Coeur de Glace\"",
+    "photo": "images/Gewurz+Coeur+de+Glace+PNG-640w.png",
+    "couleur": "blanc",
+    "pays": "France",
+    "region": "Alsace",
+    "cepage": "Gewurztraminer",
+    "style": "Élégant, frais, aromatique",
+    "statut": "cave",
+    "stock": 2,
+    "profil": "La cuvée Cœur de Glace fait partie des vins rares du domaine, disponibles en quantités très limitées. Réalisée dans l'esprit d'un vin de glace — une vendange avec raisins concentrés par gelée ou forte altération.",
+    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "degustation": {
+      "couleur": "Blanc jaunâtre",
+      "nez": "Très expressif : litchi, rose, fruits de la passion, mangue mûre, notes miellées, épices douces et touche citronnée. Laisser s'aérer 10-15 min dans le verre",
+      "bouche": "Texture veloutée et ample, bel équilibre entre sucrosité et fraîcheur acide, finale longue légèrement épicée sur les fruits exotiques confits"
+    },
+    "technique": {
+      "vinification": "À compléter",
+      "classification": "À compléter",
+      "garde": "4–6 ans",
+      "carafage": "Non, mais laisser respirer dans le verre",
+      "temperature": "10–12°C",
+      "accords": "Foie gras, desserts aux fruits exotiques, tarte à la poire ou à l'abricot, fromage à pâte dure"
+    },
+    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+  },
+  {
+    "id": 11,
+    "nom": "Domaine Colbois Chablis 2023",
+    "photo": "images/chablis-2023-domaine-colbois.png",
+    "couleur": "blanc",
+    "pays": "France",
+    "region": "Chablis, Bourgogne",
+    "cepage": "Chardonnay",
+    "style": "Minéral, pierre à fusil, aromatique",
+    "statut": "cave",
+    "stock": 5,
+    "profil": "100% Chardonnay, vinifié en cuve inox avec élevage sur lies fines. Robe paille, nez d'agrumes et notes minérales, joli équilibre et longueur sympa. Domaine Colbois est un vignoble respecté localement, produisant un Chablis franc, minéral, bien fait, dans le style classique.",
+    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "degustation": {
+      "couleur": "À compléter",
+      "nez": "Pomme verte, zeste, citron, pamplemousse, pierre humide",
+      "bouche": "Attaque fraîche, vive, acidité bien tendue, finale saline"
+    },
+    "technique": {
+      "vinification": "Cuves inox thermo-régulées, élevage sur lies fines",
+      "classification": "Chablis AOC",
+      "garde": "2–5 ans",
+      "carafage": "Non",
+      "temperature": "10–11°C",
+      "accords": "Fruits de mer et crustacés, fromage frais, tartare de saumon"
+    },
+    "journal": { "date": "Automne 2025", "occasion": "Goûter une 1ère bouteille de ce Chablis", "avec_quoi": "Saumon fumé", "ressenti": "Très agréable", "evolution_verre": "", "note_personnelle": "1ère bouteille ouverte" }
+  },
+  {
+    "id": 12,
+    "nom": "Costa di Bussia - Campo di Bui 2016",
+    "photo": "images/Campodeibuoi.png",
+    "couleur": "rouge",
+    "pays": "Italie",
+    "region": "Piémont – Monforte d'Alba",
+    "cepage": "Nebbiolo",
+    "style": "Large, profond, gastronomique",
+    "statut": "cave",
+    "stock": 1,
+    "profil": "Domaine fondé en 1874 par Luigi Arnulfo, une légende du Barolo. La propriété appartient aujourd'hui à la famille Sartirano et comprend seulement 11 acres de vignes de nebbiolo. Vigna Campo dei Buoi, située dans la zone de Bussia à Monforte d'Alba — nom historique transmis par les habitants locaux.",
+    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "degustation": {
+      "couleur": "Rouge profond",
+      "nez": "Arômes complexes de fruits rouges confits (cerise, griotte), roses fanées, violette, notes tertiaires de cuir, truffe, tabac et épices douces",
+      "bouche": "Structure tannique encore présente mais qui commence à se fondre, belle acidité caractéristique du nebbiolo, saveurs de fruits mûrs, réglisse, longue finale avec notes de goudron et terre humide"
+    },
+    "technique": {
+      "vinification": "Élevage de 30 mois en grands fûts de chêne slavon de 5000 litres, suivi d'un affinage en bouteille",
+      "classification": "Barolo DOC",
+      "garde": "10–15 ans",
+      "carafage": "2h+, évolution dans le verre recommandée",
+      "temperature": "16–18°C",
+      "accords": "À compléter"
+    },
+    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+  },
+  {
+    "id": 13,
+    "nom": "Tosone Nero d'Avola 2021",
+    "photo": "images/Tosone.png",
+    "couleur": "rouge",
+    "pays": "Italie",
+    "region": "Sicile",
+    "cepage": "Nero d'Avola",
+    "style": "Solaire, puissant, généreux",
+    "statut": "cave",
+    "stock": 3,
+    "profil": "Ce 100% Nero d'Avola est cultivé principalement sur les collines de la Sicile occidentale entre 300 et 500 mètres d'altitude. Le style moderne cherche à dompter la fougue du cépage pour créer un vin immédiat, soyeux et extrêmement flatteur.",
+    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "degustation": {
+      "couleur": "Rouge profond",
+      "nez": "Explosion de fruits très mûrs : confiture de cerise noire, mûre, pruneau, enveloppés d'arômes boisés et doux (vanille, chocolat noir, cacao, touche de réglisse)",
+      "bouche": "Opulent, charnu et très dense. Tanins extrêmement souples et fondus, attaque ronde presque suave, acidité discrète. Environ 14,5% vol."
+    },
+    "technique": {
+      "vinification": "8 mois en barrique",
+      "classification": "Sicilia DOC",
+      "garde": "3–7 ans",
+      "carafage": "1h minimum",
+      "temperature": "16–18°C",
+      "accords": "Viandes grillées, pâtes et sauces riches, fromages affinés et corsés"
+    },
+    "journal": { "date": "Fin d'année 2025", "occasion": "Bon repas", "avec_quoi": "À compléter", "ressenti": "À compléter", "evolution_verre": "1h", "note_personnelle": "1ère bouteille déjà agréable." }
+  },
+  {
+    "id": 14,
+    "nom": "Domaine de l'Envol Pinot Gris 2024",
+    "photo": "images/envolpinotgris.jpg",
+    "couleur": "blanc",
+    "pays": "France",
+    "region": "Alsace",
+    "cepage": "Pinot Gris",
+    "style": "Aromatique, frais",
+    "statut": "cave",
+    "stock": 6,
+    "profil": "Pinot gris sec mais pas lourd. Encore jeune, il possède pour le moment un profil aromatique. Avec le temps, le côté granit pourra apporter un peu de tension minérale.",
+    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "degustation": {
+      "couleur": "À compléter",
+      "nez": "À compléter",
+      "bouche": "À compléter"
+    },
+    "technique": {
+      "vinification": "À compléter",
+      "classification": "À compléter",
+      "garde": "6–10 ans",
+      "carafage": "Non",
+      "temperature": "9–12°C",
+      "accords": "Plats crémeux, champignons, plats épicés"
+    },
+    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+  },
+  {
+    "id": 15,
+    "nom": "Saint Véran par Stéphanie Saumaize",
+    "photo": "images/stveran.webp",
+    "couleur": "blanc",
+    "pays": "France",
+    "region": "Sud Mâconnais, Bourgogne",
+    "cepage": "Chardonnay",
+    "style": "Soyeux, pur, équilibré",
+    "statut": "cave",
+    "stock": 6,
+    "profil": "Produit dans le sud de la Bourgogne (Mâconnais) par une vigneronne de grand talent, cette cuvée est un 100% Chardonnay qui allie la rondeur bourguignonne à une superbe tension. Nez sur des notes de fleurs blanches, d'amande fraîche et une touche de fruits jaunes. La bouche est charnue et enveloppante, soutenue par une belle fraîcheur calcaire.",
+    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "degustation": {
+      "couleur": "À compléter",
+      "nez": "À compléter",
+      "bouche": "À compléter"
+    },
+    "technique": {
+      "vinification": "À compléter",
+      "classification": "À compléter",
+      "garde": "8–10 ans",
+      "carafage": "Non",
+      "temperature": "10–12°C",
+      "accords": "Poisson"
+    },
+    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+  },
+  {
+    "id": 16,
+    "nom": "Domaine de la Robinière - Raimbault \"Bel-air\" Vouvray 2023",
+    "photo": "images/vouvray2023.webp",
+    "couleur": "blanc",
+    "pays": "France",
+    "region": "Loire",
+    "cepage": "Chenin Blanc",
+    "style": "Fraîcheur, minéralité, fruité",
+    "statut": "cave",
+    "stock": 6,
+    "profil": "Expression classique et vibrante du Chenin Blanc, né sur les sols calcaires (tuffeau) et de silex de la Touraine. Ce millésime 2023 offre un profil très pur, axé sur les fruits à chair blanche (poire, pomme granny) et des notes de verveine. Une tension minérale saline très salivante due au terroir de silex.",
+    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "degustation": {
+      "couleur": "À compléter",
+      "nez": "À compléter",
+      "bouche": "À compléter"
+    },
+    "technique": {
+      "vinification": "À compléter",
+      "classification": "Vouvray AOC",
+      "garde": "5–10 ans",
+      "carafage": "Non",
+      "temperature": "10–12°C",
+      "accords": "À compléter"
+    },
+    "journal": { "date": "", "occasion": "1ère bouteille", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "Ouvrir une 2e bouteille" }
+  },
+  {
+    "id": 17,
+    "nom": "Nativ Eremo San Quirico 2019",
+    "photo": "images/eremo.png",
+    "couleur": "rouge",
+    "pays": "Italie",
+    "region": "Campanie – Taurasi",
+    "cepage": "Aglianico",
+    "style": "Vieilles vignes, maturité, opulence",
+    "statut": "cave",
+    "stock": 3,
+    "profil": "La grande cuvée emblématique de la maison Nativ. Issu d'une petite parcelle à Taurasi sur des sols volcaniques, où les vignes d'Aglianico ont pour certaines plus de 150 ans — rescapées du phylloxéra. Ces vieilles vignes produisent très peu de grappes, mais le jus obtenu est d'une richesse aromatique incroyable.",
+    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "degustation": {
+      "couleur": "Presque noire, impénétrable, avec des reflets violacés denses",
+      "nez": "Explosion de fruits noirs confiturés (crème de cassis, mûre sauvage, cerise noire) mêlée à des notes gourmandes d'élevage : vanille, chocolat noir, café torréfié, noix de coco et pointe de tabac doux",
+      "bouche": "Extrêmement dense, corsé et voluptueux. Texture presque sirupeuse, tanins totalement enrobés par la richesse du fruit. Finale longue, chaleureuse (~14,5–15%), touches d'épices douces"
+    },
+    "technique": {
+      "vinification": "12 mois en barriques neuves de chêne français",
+      "classification": "Irpinia Campi Taurasini DOC",
+      "garde": "8–10 ans",
+      "carafage": "2h+, évolution dans le verre recommandée",
+      "temperature": "16–18°C",
+      "accords": "Viande rouge, plats italiens typiques (ragù), magret de canard"
+    },
+    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+  },
+  {
+    "id": 18,
+    "nom": "Nativ Blue Onice 2020",
+    "photo": "images/Blueonice.png",
+    "couleur": "rouge",
+    "pays": "Italie",
+    "region": "Campanie",
+    "cepage": "Aglianico",
+    "style": "Puissant, structuré, boisé et minéral",
+    "statut": "cave",
+    "stock": 3,
+    "profil": "L'Aglianico est souvent surnommé le « Barolo du Sud » pour sa capacité à donner des vins puissants et bâtis pour la garde. Un vin de caractère, plus complexe, corpulent et boisé, avec du relief en bouche et une structure tannique affirmée.",
+    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "degustation": {
+      "couleur": "Sombre, presque opaque",
+      "nez": "Fruits noirs mûrs (cerise noire, prugna), épices douces (poivre noir, réglisse), cacao et pointe torréfiée apportée par la barrique",
+      "bouche": "Corsé, dense, avec une matière riche. Terroir volcanique et calcaire de l'Irpinia apportant une belle colonne vertébrale acide et une minéralité qui étirent la finale. Tanins bien serrés et enveloppants"
+    },
+    "technique": {
+      "vinification": "À compléter",
+      "classification": "Irpinia DOP",
+      "garde": "5–10 ans",
+      "carafage": "1h, évolution dans le verre recommandée",
+      "temperature": "16–18°C",
+      "accords": "Viande rouge, plats italiens typiques (ragù), fromages affinés et puissants"
+    },
+    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+  },
+  {
+    "id": 19,
+    "nom": "Vinhas de Xisto Tinto Reserva 2022",
+    "photo": "images/Blueonice.png",
+    "couleur": "rouge",
+    "pays": "Portugal",
+    "region": "Campanie",
+    "cepage": "Aglianico",
+    "style": "Puissant, structuré, boisé et minéral",
+    "statut": "cave",
+    "stock": 3,
+    "profil": "L'Aglianico est souvent surnommé le « Barolo du Sud » pour sa capacité à donner des vins puissants et bâtis pour la garde. Un vin de caractère, plus complexe, corpulent et boisé, avec du relief en bouche et une structure tannique affirmée.",
+    "notes_experts": { "wine_advocate": "N/a", "jancis_robinson": "N/a", "james_suckling": "N/a", "peak_wines": "N/a" },
+    "degustation": {
+      "couleur": "Sombre, presque opaque",
+      "nez": "Fruits noirs mûrs (cerise noire, prugna), épices douces (poivre noir, réglisse), cacao et pointe torréfiée apportée par la barrique",
+      "bouche": "Corsé, dense, avec une matière riche. Terroir volcanique et calcaire de l'Irpinia apportant une belle colonne vertébrale acide et une minéralité qui étirent la finale. Tanins bien serrés et enveloppants"
+    },
+    "technique": {
+      "vinification": "À compléter",
+      "classification": "Irpinia DOP",
+      "garde": "5–10 ans",
+      "carafage": "1h, évolution dans le verre recommandée",
+      "temperature": "16–18°C",
+      "accords": "Viande rouge, plats italiens typiques (ragù), fromages affinés et puissants"
+    },
+    "journal": { "date": "", "occasion": "", "avec_quoi": "", "ressenti": "", "evolution_verre": "", "note_personnelle": "" }
+  }
+]
