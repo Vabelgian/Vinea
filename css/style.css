@@ -72,8 +72,11 @@ body{
     font-weight:600;
 }
 
-.cave{
-    background-image:url('..assets/cave.jpg');
+.cave {
+    background-image: url('../assets/cave.jpg');
+    min-height: 300px; /* Donne une hauteur pour forcer l'affichage */
+    width: 100%;
+    background-size: cover; /* Pour que l'image s'ajuste bien */
 }
 
 .degustation{
