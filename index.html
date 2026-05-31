@@ -33,7 +33,6 @@
       overflow-x: hidden;
     }
 
-    /* ── PHONE WRAPPER (desktop centering) ── */
     body {
       display: flex;
       justify-content: center;
@@ -51,7 +50,6 @@
       background: var(--cream);
     }
 
-    /* ── HERO BACKGROUND ── */
     .hero {
       position: relative;
       width: 100%;
@@ -64,12 +62,10 @@
       position: absolute;
       inset: 0;
       background:
-        /* warm gradient sky */
         radial-gradient(ellipse 120% 60% at 50% -10%,
           rgba(255,210,140,0.55) 0%,
           rgba(230,170,90,0.25) 40%,
           transparent 70%),
-        /* vineyard hills silhouette layer */
         linear-gradient(
           180deg,
           #F2D9B0 0%,
@@ -88,7 +84,6 @@
       to   { filter: brightness(1.05) saturate(1.08); }
     }
 
-    /* rolling hill shapes */
     .hero-bg::before {
       content: '';
       position: absolute;
@@ -111,7 +106,6 @@
       border-radius: 70% 90% 0 0 / 50% 60% 0 0;
     }
 
-    /* fade into page */
     .hero-fade {
       position: absolute;
       bottom: 0;
@@ -122,7 +116,6 @@
       pointer-events: none;
     }
 
-    /* ── BRANDING ── */
     .brand {
       position: relative;
       z-index: 2;
@@ -165,7 +158,6 @@
       margin-top: 2px;
     }
 
-    /* ── CARDS SECTION ── */
     .cards {
       position: relative;
       z-index: 3;
@@ -173,7 +165,13 @@
       display: flex;
       flex-direction: column;
       gap: 14px;
-      margin-top: -20px;
+      margin-top: -40px;
+    }
+
+    /* Les cartes sont maintenant des <a>, on retire la décoration */
+    a.card {
+      display: block;
+      text-decoration: none;
     }
 
     .card {
@@ -204,7 +202,6 @@
       box-shadow: 0 4px 16px rgba(20,8,8,0.45);
     }
 
-    /* photo-like atmospheric backgrounds */
     .card-bg {
       position: absolute;
       inset: 0;
@@ -214,7 +211,6 @@
     }
     .card:hover .card-bg { transform: scale(1.04); }
 
-    /* card 1 – cave/cellar: dark warm bottles */
     .card-1 .card-bg {
       background:
         radial-gradient(ellipse 60% 80% at 80% 50%, rgba(120,70,20,0.6) 0%, transparent 60%),
@@ -231,7 +227,6 @@
       );
     }
 
-    /* card 2 – dégustations: candlelit ambiance */
     .card-2 .card-bg {
       background:
         radial-gradient(ellipse 40% 70% at 75% 40%, rgba(200,130,40,0.55) 0%, transparent 55%),
@@ -239,14 +234,12 @@
         linear-gradient(135deg, #100808 0%, #2A1208 40%, #1A0C05 70%, #0D0505 100%);
     }
 
-    /* card 3 – atlas: vineyard landscape dusk */
     .card-3 .card-bg {
       background:
         radial-gradient(ellipse 80% 50% at 50% 0%, rgba(200,155,70,0.5) 0%, transparent 55%),
         linear-gradient(170deg, #C49A40 0%, #9B7A30 20%, #6A7A3A 45%, #3D5020 65%, #283818 85%, #1A2510 100%);
     }
 
-    /* dark overlay for text legibility */
     .card-overlay {
       position: absolute;
       inset: 0;
@@ -258,7 +251,6 @@
       );
     }
 
-    /* card content */
     .card-content {
       position: relative;
       z-index: 2;
@@ -292,7 +284,6 @@
       text-shadow: 0 2px 12px rgba(0,0,0,0.5);
     }
 
-    /* ── HOME INDICATOR ── */
     .home-bar {
       position: relative;
       z-index: 10;
@@ -309,7 +300,6 @@
       background: rgba(60,30,20,0.3);
     }
 
-    /* ── RESPONSIVE: full-bleed on real mobile ── */
     @media (max-width: 430px) {
       body { background: var(--cream); }
       .phone { max-width: 100%; }
@@ -324,13 +314,9 @@
     <div class="hero-bg"></div>
     <div class="hero-fade"></div>
 
-    <!-- Branding -->
     <div class="brand">
-      <!-- Grape SVG icon -->
       <svg class="grape-icon" viewBox="0 0 48 54" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- stem -->
         <path d="M24 3 C24 3, 20 7, 26 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-        <!-- grapes cluster -->
         <circle cx="24" cy="16" r="5.5" fill="currentColor" opacity="0.9"/>
         <circle cx="17" cy="22" r="5.5" fill="currentColor" opacity="0.85"/>
         <circle cx="31" cy="22" r="5.5" fill="currentColor" opacity="0.85"/>
@@ -341,7 +327,6 @@
         <circle cx="30.5" cy="35" r="5" fill="currentColor" opacity="0.8"/>
         <circle cx="24" cy="41" r="5" fill="currentColor" opacity="0.75"/>
       </svg>
-
       <span class="brand-name">Vinea</span>
       <span class="brand-sub">Votre compagnon vin</span>
     </div>
@@ -355,13 +340,11 @@
       <div class="card-bg"></div>
       <div class="card-overlay"></div>
       <div class="card-content">
-        <!-- Wine crate / bottles icon -->
         <svg class="card-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect x="4" y="28" width="36" height="12" rx="2.5" stroke="#C9A96E" stroke-width="1.8"/>
           <line x1="4" y1="34" x2="40" y2="34" stroke="#C9A96E" stroke-width="1.4"/>
           <line x1="16" y1="28" x2="16" y2="40" stroke="#C9A96E" stroke-width="1.4"/>
           <line x1="28" y1="28" x2="28" y2="40" stroke="#C9A96E" stroke-width="1.4"/>
-          <!-- bottle -->
           <path d="M19 26 C19 23 20 21 21 19 L21 10 C21 9 22 8.5 22 8.5 C22 8.5 23 9 23 10 L23 19 C24 21 25 23 25 26"
             stroke="#C9A96E" stroke-width="1.8" stroke-linecap="round" fill="none"/>
           <rect x="20.5" y="7" width="3" height="3" rx="1" fill="#C9A96E"/>
@@ -369,35 +352,32 @@
         <div class="card-divider"></div>
         <span class="card-label">Ma cave</span>
       </div>
-    </div>
+    </a>
 
     <!-- Dégustations -->
     <a href="degustation.html" class="card card-2">
       <div class="card-bg"></div>
       <div class="card-overlay"></div>
       <div class="card-content">
-        <!-- Wine glass icon -->
         <svg class="card-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 6 C12 6, 10 16, 14 22 C16 25, 20 26, 22 26 C24 26, 28 25, 30 22 C34 16, 32 6, 32 6 Z"
             stroke="#C97B7B" stroke-width="1.8" fill="none" stroke-linejoin="round"/>
           <path d="M14 18 C14 18, 20 26, 22 26" stroke="#C97B7B" stroke-width="1.2" opacity="0.5"/>
           <line x1="22" y1="26" x2="22" y2="37" stroke="#C97B7B" stroke-width="1.8"/>
           <line x1="15" y1="37" x2="29" y2="37" stroke="#C97B7B" stroke-width="1.8" stroke-linecap="round"/>
-          <!-- wine fill hint -->
           <path d="M14.5 15 C14.5 15, 16 20, 22 21.5 C28 20, 29.5 15, 29.5 15"
             fill="rgba(180,50,50,0.25)" stroke="none"/>
         </svg>
         <div class="card-divider"></div>
         <span class="card-label">Dégustations</span>
       </div>
-    </div>
+    </a>
 
     <!-- Atlas -->
     <a href="atlas.html" class="card card-3">
       <div class="card-bg"></div>
       <div class="card-overlay"></div>
       <div class="card-content">
-        <!-- Globe / atlas icon -->
         <svg class="card-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="22" cy="22" r="16" stroke="#8A9E7B" stroke-width="1.8"/>
           <ellipse cx="22" cy="22" rx="7" ry="16" stroke="#8A9E7B" stroke-width="1.4"/>
@@ -408,7 +388,7 @@
         <div class="card-divider"></div>
         <span class="card-label">Atlas</span>
       </div>
-    </div>
+    </a>
 
   </div>
 
