@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fenêtres de dégustation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bordeaux: #5a1f1f; --bordeaux-light: #7a2f2f; --bordeaux-dark: #3d1515;
+      --bg: #0e0c0a; --card: #1a1714; --border: rgba(255,255,255,0.07);
+      --text: #ede8df; --muted: #8a8278; --hint: #5a5450;
+      --gold: #c9a84c; --gold-dim: rgba(201,168,76,0.12); --gold-soft: rgba(201,168,76,0.06);
+      --green: #6a9e5f; --green-dim: rgba(106,158,95,0.12);
+      --blue: #5b8fb5; --blue-dim: rgba(91,143,181,0.12);
+      --rouge-pill: rgba(180,60,60,0.18); --rouge-pill-border: rgba(180,60,60,0.35); --rouge-pill-text: #e07070;
+      --blanc-pill: rgba(201,168,76,0.13); --blanc-pill-border: rgba(201,168,76,0.3); --blanc-pill-text: #c9a84c;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: "Jost", sans-serif; font-weight: 300; font-size: 16px; min-height: 100vh; }
+    .nav { background: var(--bordeaux-dark); padding: 0 32px; position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 20px rgba(0,0,0,0.5); }
+    .nav::before { content: ""; position: absolute; top: -40px; right: -40px; width: 200px; height: 200px; border: 1px solid rgba(201,169,110,0.1); border-radius: 50%; pointer-events: none; }
+    .nav-inner { max-width: 820px; margin: 0 auto; display: flex; align-items: center; }
+    .nav-brand { font-family: "Cormorant Garamond", serif; font-size: 1.05rem; font-weight: 300; color: rgba(244,241,236,0.5); padding: 16px 24px 16px 0; border-right: 1px solid rgba(255,255,255,0.1); margin-right: 4px; white-space: nowrap; letter-spacing: .04em; }
+    .nav-brand span { color: var(--gold); font-style: italic; }
+    .nav-link { font-family: "Jost", sans-serif; font-size: 11px; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; color: rgba(244,241,236,0.45); text-decoration: none; padding: 20px 16px; position: relative; transition: color .2s; white-space: nowrap; }
+    .nav-link::after { content: ""; position: absolute; bottom: 0; left: 16px; right: 16px; height: 2px; background: var(--gold); transform: scaleX(0); transition: transform .2s; }
+    .nav-link:hover { color: rgba(244,241,236,0.8); }
+    .nav-link.active { color: var(--gold); }
+    .nav-link.active::after { transform: scaleX(1); }
+    .filters-bar { background: var(--bordeaux); padding: 13px 32px; position: sticky; top: 57px; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.4); }
+    .filters-inner { max-width: 820px; margin: 0 auto; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .filter-group { display: flex; align-items: center; gap: 6px; }
+    .filter-label { font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: rgba(244,241,236,0.35); margin-right: 2px; white-space: nowrap; }
+    .filter-sep { width: 1px; height: 20px; background: rgba(255,255,255,0.12); flex-shrink: 0; }
+    .filter-btn { font-family: "Jost", sans-serif; font-size: 11px; font-weight: 400; letter-spacing: .05em; background: transparent; border: 1px solid rgba(244,241,236,0.2); color: rgba(244,241,236,0.55); padding: 5px 12px; border-radius: 999px; cursor: pointer; transition: all .18s; white-space: nowrap; }
+    .filter-btn:hover { border-color: var(--gold); color: rgba(244,241,236,0.85); }
+    .filter-btn.active { background: var(--gold); border-color: var(--gold); color: var(--bordeaux-dark); font-weight: 500; }
+    .filter-reset { font-family: "Jost", sans-serif; font-size: 11px; background: none; border: none; color: rgba(244,241,236,0.25); cursor: pointer; padding: 5px 8px; letter-spacing: .06em; transition: color .18s; margin-left: auto; }
+    .filter-reset:hover { color: var(--gold); }
+    .container { max-width: 820px; margin: 0 auto; padding: 48px 32px 100px; }
+    .page-header { margin-bottom: 48px; }
+    .header-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+    h1 { font-family: "Cormorant Garamond", serif; font-weight: 300; font-size: clamp(2.6rem, 6vw, 4rem); line-height: 1.05; letter-spacing: -.02em; color: var(--text); }
+    h1 em { font-style: italic; color: var(--gold); }
+    .subtitle { margin-top: 14px; color: var(--muted); font-size: .95rem; line-height: 1.7; max-width: 520px; }
+    .tabs { display: flex; gap: 6px; margin-bottom: 36px; border-bottom: 1px solid var(--border); }
+    .tab { font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; padding: 10px 20px; border: none; background: transparent; color: var(--hint); cursor: pointer; position: relative; transition: color .2s; }
+    .tab::after { content: ""; position: absolute; bottom: -1px; left: 0; right: 0; height: 1px; background: var(--gold); transform: scaleX(0); transition: transform .2s; }
+    .tab.active { color: var(--gold); }
+    .tab.active::after { transform: scaleX(1); }
+    .tab:hover:not(.active) { color: var(--muted); }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .year-block { margin-bottom: 44px; }
+    .year-label { font-family: "Cormorant Garamond", serif; font-size: 3rem; font-weight: 400; color: var(--hint); letter-spacing: .1em; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+    .year-label::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 10px; overflow: hidden; transition: border-color .2s; opacity: 0; transform: translateY(8px); animation: fadeUp .35s forwards; }
+    .card:hover { border-color: rgba(201,168,76,0.2); }
+    .card.hidden { display: none; }
+    .card-header { padding: 18px 20px 16px; }
+    .card-top-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .card-title { font-family: "Cormorant Garamond", serif; font-size: 1.2rem; font-weight: 400; color: var(--text); line-height: 1.3; }
+    .card-date { font-size: .8rem; color: var(--muted); margin-top: 4px; display: flex; align-items: center; gap: 5px; }
+    .card-date svg { opacity: .6; }
+    .pill-couleur { font-size: .68rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; flex-shrink: 0; margin-top: 2px; }
+    .pill-rouge { background: var(--rouge-pill); border: 1px solid var(--rouge-pill-border); color: var(--rouge-pill-text); }
+    .pill-blanc { background: var(--blanc-pill); border: 1px solid var(--blanc-pill-border); color: var(--blanc-pill-text); }
+    .card-comment { font-size: .88rem; color: var(--muted); line-height: 1.65; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); font-style: italic; }
+    .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 12px; }
+    .tag { font-size: .72rem; padding: 3px 9px; border-radius: 999px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--muted); letter-spacing: .02em; }
+    .openings-toggle { width: 100%; background: rgba(255,255,255,0.02); border: none; border-top: 1px solid var(--border); padding: 11px 20px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; color: var(--muted); font-family: "Jost", sans-serif; font-size: .75rem; font-weight: 400; letter-spacing: .08em; text-transform: uppercase; transition: background .15s, color .15s; }
+    .openings-toggle:hover { background: var(--gold-soft); color: var(--gold); }
+    .openings-toggle.open { color: var(--gold); }
+    .chevron { width: 14px; height: 14px; transition: transform .25s; opacity: .5; }
+    .openings-toggle.open .chevron { transform: rotate(180deg); }
+    .openings-body { max-height: 0; overflow: hidden; transition: max-height .35s cubic-bezier(.4,0,.2,1); }
+    .openings-body.open { max-height: 2000px; }
+    .opening { padding: 14px 20px; border-top: 1px solid var(--border); }
+    .opening-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .opening-num { width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: .68rem; color: var(--hint); flex-shrink: 0; }
+    .opening-date { font-size: .8rem; color: var(--muted); }
+    .opening-note { font-size: .88rem; color: var(--text); line-height: 1.65; margin-left: 32px; font-style: italic; }
+    .opening-note.empty { color: var(--hint); }
+    .opening .tags { margin-left: 32px; margin-top: 8px; }
+    .badge { display: inline-flex; align-items: center; gap: 5px; font-size: .72rem; padding: 4px 10px; border-radius: 999px; margin-top: 10px; letter-spacing: .04em; }
+    .badge.gold { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(201,168,76,0.25); }
+    .badge.blue { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(91,143,181,0.25); }
+    .badge.green { background: var(--green-dim); color: var(--green); border: 1px solid rgba(106,158,95,0.25); }
+    .no-result { display: none; text-align: center; padding: 60px 20px; color: var(--hint); }
+    .no-result p { font-family: "Cormorant Garamond", serif; font-size: 1.2rem; font-weight: 300; font-style: italic; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    /* Collapsible filter toggle button (mobile only) */
+    .filters-toggle-btn {
+      display: none;
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 11px 16px;
+      color: rgba(244,241,236,0.75);
+      font-family: "Jost", sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .filters-toggle-btn .toggle-label { display: flex; align-items: center; gap: 8px; }
+    .filters-toggle-btn .active-hint {
+      font-size: 10px; letter-spacing: .06em; color: var(--gold);
+      background: var(--gold-dim); border: 1px solid rgba(201,168,76,0.25);
+      padding: 2px 8px; border-radius: 999px;
+    }
+    .filters-toggle-btn .toggle-chevron { width: 14px; height: 14px; transition: transform .25s; opacity: .5; }
+    .filters-toggle-btn.open .toggle-chevron { transform: rotate(180deg); }
+    .filters-collapsible { transition: max-height .3s cubic-bezier(.4,0,.2,1), opacity .3s; overflow: hidden; }
+
+    @media (max-width: 600px) {
+      .nav { padding: 0 16px; }
+      .nav-brand { display: none; }
+      .container { padding: 32px 16px 80px; }
+
+      /* Sticky bar stays but compact */
+      .filters-bar { padding: 0 0; top: 53px; }
+
+      /* Show toggle button */
+      .filters-toggle-btn { display: flex; }
+
+      /* Collapsible content */
+      .filters-collapsible { max-height: 0; opacity: 0; }
+      .filters-collapsible.open { max-height: 400px; opacity: 1; }
+
+      /* Stack filter groups vertically */
+      .filters-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 16px 14px;
+      }
+
+      /* Each filter group on its own row, buttons wrap */
+      .filter-group {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 5px;
+        width: 100%;
+      }
+
+      /* Hide separators on mobile */
+      .filter-sep { display: none; }
+
+      /* Reset button on its own row */
+      .filter-reset { margin-left: 0; padding: 5px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">Cave <span>à Vin</span></div>
+    <a href="index.html" class="nav-link">Accueil</a>
+    <a href="Ma-Cave.html" class="nav-link">Ma Cave</a>
+    <a href="regionsviticoles.html" class="nav-link">Régions</a>
+    <a href="fenetres-degustation.html" class="nav-link active">Dégustations</a>
+  </div>
+</nav>
+
+<div class="filters-bar">
+  <button class="filters-toggle-btn" id="filters-toggle-btn" onclick="toggleFiltersBar(this)" aria-expanded="false">
+    <span class="toggle-label">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+      Filtres
+      <span class="active-hint" id="filters-active-hint" style="display:none">actifs</span>
+    </span>
+    <svg class="toggle-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="filters-collapsible" id="filters-collapsible">
+  <div class="filters-inner">
+    <div class="filter-group">
+      <span class="filter-label">Couleur</span>
+      <button class="filter-btn active" data-filter="couleur" data-value="tous" onclick="setFilter('couleur','tous',this)">Tous</button>
+      <button class="filter-btn" data-filter="couleur" data-value="rouge" onclick="setFilter('couleur','rouge',this)">Rouge</button>
+      <button class="filter-btn" data-filter="couleur" data-value="blanc" onclick="setFilter('couleur','blanc',this)">Blanc</button>
+    </div>
+    <div class="filter-sep"></div>
+    <div class="filter-group" id="year-filters">
+      <span class="filter-label">Année</span>
+      <button class="filter-btn active" data-filter="annee" data-value="tous" onclick="setFilter('annee','tous',this)">Toutes</button>
+    </div>
+    <div class="filter-sep"></div>
+    <div class="filter-group" id="location-filters">
+      <span class="filter-label">Lieu</span>
+      <button class="filter-btn active" data-filter="lieu_achat" data-value="tous" onclick="setFilter('lieu_achat','tous',this)">Tous</button>
+    </div>
+    <button class="filter-reset" onclick="resetFilters()">✕ Réinitialiser</button>
+  </div>
+  </div><!-- /filters-collapsible -->
+</div>
+
+<div class="container">
+  <div class="page-header">
+    <div class="header-eyebrow">Cave personnelle</div>
+    <h1>Fenêtres de<br><em>dégustation</em></h1>
+    <p class="subtitle">Suivi des dégustations passées et planification des ouvertures futures. Une mémoire du vin dans le temps.</p>
+  </div>
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('degust',this)">Dégustations</button>
+    <button class="tab" onclick="showTab('planning',this)">Planification</button>
+  </div>
+  <div id="degust" class="panel active"></div>
+  <div id="planning" class="panel"></div>
+</div>
+
+<script>
+// SVGs et icônes
+var SVG_CLOCK    = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
+var SVG_CAL      = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>';
+var SVG_CHEVRON  = '<svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>';
+var SVG_INFO     = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+var SVG_GARDE    = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg>';
+var SVG_CHECK    = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+
+var BADGE_ICONS = { info: SVG_INFO, garde: SVG_GARDE, check: SVG_CHECK };
+var VINS = []; // Sera rempli par le JSON
+var filters = { couleur: "tous", annee: "tous", lieu_achat: "tous" };
+
+function buildTags(tags) {
+  if (!tags || !tags.length) return "";
+  return '<div class="tags">' + tags.map(function(t) { return '<span class="tag">' + t + "</span>"; }).join("") + "</div>";
+}
+
+function buildPill(couleur) {
+  if (!couleur) return "";
+  var labels = { rouge: "Rouge", blanc: "Blanc", rose: "Rose" };
+  return '<span class="pill-couleur pill-' + couleur + '">' + (labels[couleur] || couleur) + '</span>';
+}
+
+function buildBadge(badge) {
+  if (!badge) return "";
+  var icon = BADGE_ICONS[badge.icone] || "";
+  return '<span class="badge ' + badge.type + '">' + icon + badge.texte + "</span>";
+}
+
+// Génération carte DÉGUSTATION (Basée sur l'ouverture unitaire)
+function buildDegustCard(vin) {
+  var emptyClass = vin.note_degustation ? "" : " empty";
+  var noteText = vin.note_degustation || "Notes à remplir après dégustation.";
+  
+  var ouverturesHtml = '<div class="opening">'
+    + '<div class="opening-header">'
+    + '<div class="opening-num">1</div>'
+    + '<div class="opening-date">' + vin.date_ouverture + '</div>'
+    + '</div>'
+    + '<div class="opening-note' + emptyClass + '">' + noteText + '</div>'
+    + buildTags(vin.tags_ouverture)
+    + '</div>';
+
+  return '<div class="card" data-couleur="' + (vin.couleur || "") + '" data-annee="' + vin.annee_degustation + '" data-lieu="' + (vin.lieu_achat || "non_renseigne") + '">'
+    + '<div class="card-header">'
+    + '<div class="card-top-row"><div>'
+    + '<div class="card-title">' + vin.titre + '</div>'
+    + '<div class="card-date">' + SVG_CAL + " " + vin.date_ouverture + '</div>'
+    + '</div>' + buildPill(vin.couleur) + '</div>'
+    + '<div class="card-comment">' + vin.commentaire + '</div>'
+    + buildTags(vin.tags)
+    + '</div>'
+    + '<button class="openings-toggle" onclick="toggleOpenings(this)">'
+    + '<span>Compte-rendu de dégustation</span>'
+    + SVG_CHEVRON + '</button>'
+    + '<div class="openings-body">' + ouverturesHtml + '</div>'
+    + '</div>';
+}
+
+// Génération carte PLANIFICATION
+function buildPlanningCard(vin) {
+  return '<div class="card" data-couleur="' + (vin.couleur || "") + '" data-annee="' + vin.annee_affichage + '" data-lieu="' + (vin.lieu_achat || "non_renseigne") + '">'
+    + '<div class="card-header">'
+    + '<div class="card-top-row"><div>'
+    + '<div class="card-title">' + vin.titre + '</div>'
+    + '<div class="card-date">' + SVG_CLOCK + " " + vin.fenetre + '</div>'
+    + '</div>' + buildPill(vin.couleur) + '</div>'
+    + '<div class="card-comment">' + vin.commentaire + '</div>'
+    + buildTags(vin.tags)
+    + buildBadge(vin.badge)
+    + '</div></div>';
+}
+
+function renderPanel(statut, containerId) {
+  var container = document.getElementById(containerId);
+  var vins = VINS.filter(function(v) { return v.statut === statut; });
+  var byYear = {};
+
+  vins.forEach(function(v) {
+    var anneClé = (statut === "degust") ? v.annee_degustation : v.annee_affichage;
+    if (!byYear[anneClé]) byYear[anneClé] = [];
+    byYear[anneClé].push(v);
+  });
+
+  var html = "";
+  Object.keys(byYear).sort(function(a, b) { return a - b; }).forEach(function(year) {
+    var cards = byYear[year].map(function(v) {
+      return statut === "degust" ? buildDegustCard(v) : buildPlanningCard(v);
+    }).join("");
+    var label = (statut === "planification" && parseInt(year) >= 2030) ? year + " +" : year;
+    html += '<div class="year-block" data-year="' + year + '">'
+          + '<div class="year-label">' + label + '</div>'
+          + cards + '</div>';
+  });
+
+  html += '<div class="no-result"><p>Aucun vin ne correspond à ces filtres.</p></div>';
+  container.innerHTML = html;
+}
+
+function buildYearFilters() {
+  var years = [];
+  VINS.forEach(function(v) {
+    var y = (v.statut === "degust") ? v.annee_degustation : v.annee_affichage;
+    if (years.indexOf(y) === -1) years.push(y);
+  });
+  years.sort(function(a, b) { return a - b; });
+  var container = document.getElementById("year-filters");
+  
+  container.innerHTML = '<span class="filter-label">Année</span><button class="filter-btn active" data-filter="annee" data-value="tous" onclick="setFilter(\'annee\',\'tous\',this)">Toutes</button>';
+  
+  years.forEach(function(y) {
+    var btn = document.createElement("button");
+    btn.className = "filter-btn";
+    btn.setAttribute("data-filter", "annee");
+    btn.setAttribute("data-value", y);
+    btn.textContent = y;
+    btn.onclick = function() { setFilter("annee", y, btn); };
+    container.appendChild(btn);
+  });
+}
+
+// CONFIGURATION DU FILTRE DYNAMIQUE DU LIEU D'ACHAT
+function buildLocationFilters() {
+  var locations = [];
+  VINS.forEach(function(v) {
+    if (v.lieu_achat && locations.indexOf(v.lieu_achat) === -1) {
+      locations.push(v.lieu_achat);
+    }
+  });
+  locations.sort();
+  var container = document.getElementById("location-filters");
+  
+  container.innerHTML = '<span class="filter-label">Lieu</span><button class="filter-btn active" data-filter="lieu_achat" data-value="tous" onclick="setFilter(\'lieu_achat\',\'tous\',this)">Tous</button>';
+  
+  locations.forEach(function(loc) {
+    var btn = document.createElement("button");
+    btn.className = "filter-btn";
+    btn.setAttribute("data-filter", "lieu_achat");
+    btn.setAttribute("data-value", loc);
+    // Première lettre en majuscule pour un joli rendu
+    btn.textContent = loc.charAt(0).toUpperCase() + loc.slice(1);
+    btn.onclick = function() { setFilter("lieu_achat", loc, btn); };
+    container.appendChild(btn);
+  });
+}
+
+function toggleFiltersBar(btn) {
+  var collapsible = document.getElementById("filters-collapsible");
+  var open = collapsible.classList.toggle("open");
+  btn.classList.toggle("open", open);
+  btn.setAttribute("aria-expanded", open);
+}
+
+function updateFiltersHint() {
+  var hint = document.getElementById("filters-active-hint");
+  if (!hint) return;
+  var active = filters.couleur !== "tous" || filters.annee !== "tous" || filters.lieu_achat !== "tous";
+  hint.style.display = active ? "inline" : "none";
+}
+
+function closeFiltersOnMobile() {
+  if (window.innerWidth <= 600) {
+    var collapsible = document.getElementById("filters-collapsible");
+    var btn = document.getElementById("filters-toggle-btn");
+    if (collapsible) collapsible.classList.remove("open");
+    if (btn) { btn.classList.remove("open"); btn.setAttribute("aria-expanded", false); }
+  }
+}
+
+function setFilter(type, value, btn) {
+  filters[type] = value;
+  document.querySelectorAll("[data-filter=" + type + "]").forEach(function(b) { b.classList.remove("active"); });
+  btn.classList.add("active");
+  updateFiltersHint();
+  closeFiltersOnMobile();
+  applyFilters();
+}
+
+function applyFilters() {
+  ["degust", "planning"].forEach(function(panelId) {
+    var panel = document.getElementById(panelId);
+    var anyVisible = false;
+    panel.querySelectorAll(".card").forEach(function(card) {
+      var matchCouleur  = filters.couleur === "tous" || card.getAttribute("data-couleur") === filters.couleur;
+      var matchAnnee    = filters.annee   === "tous" || card.getAttribute("data-annee")   === String(filters.annee);
+      var matchLocation = filters.lieu_achat === "tous" || card.getAttribute("data-lieu") === filters.lieu_achat;
+      
+      var visible = matchCouleur && matchAnnee && matchLocation;
+      card.classList.toggle("hidden", !visible);
+      if (visible) anyVisible = true;
+    });
+    panel.querySelectorAll(".year-block").forEach(function(block) {
+      var cards = block.querySelectorAll(".card");
+      if (!cards.length) return;
+      var hasVisible = false;
+      cards.forEach(function(c) { if (!c.classList.contains("hidden")) hasVisible = true; });
+      block.style.display = hasVisible ? "" : "none";
+    });
+    var noResult = panel.querySelector(".no-result");
+    if (noResult) noResult.style.display = anyVisible ? "none" : "block";
+  });
+}
+
+function resetFilters() {
+  filters.couleur = "tous";
+  filters.annee   = "tous";
+  filters.lieu_achat = "tous";
+  document.querySelectorAll(".filter-btn").forEach(function(b) {
+    b.classList.toggle("active", b.getAttribute("data-value") === "tous");
+  });
+  updateFiltersHint();
+  applyFilters();
+}
+
+function showTab(id, btn) {
+  document.querySelectorAll(".panel").forEach(function(p) { p.classList.remove("active"); });
+  document.querySelectorAll(".tab").forEach(function(t) { t.classList.remove("active"); });
+  document.getElementById(id).classList.add("active");
+  btn.classList.add("active");
+}
+
+function toggleOpenings(btn) {
+  var body = btn.nextElementSibling;
+  var open = body.classList.toggle("open");
+  btn.classList.toggle("open", open);
+}
+
+// CHARGEMENT DU JSON VIA FETCH
+fetch('degustations.json')
+  .then(function(response) {
+    if (!response.ok) throw new Error("Erreur lors du chargement du fichier JSON.");
+    return response.json();
+  })
+  .then(function(data) {
+    VINS = data;
+    renderPanel("degust", "degust");
+    renderPanel("planification", "planning");
+    buildYearFilters();
+    buildLocationFilters(); // Génération dynamique des boutons de lieux
+    applyFilters();
+  })
+  .catch(function(error) {
+    console.error("Erreur:", error);
+    document.getElementById("degust").innerHTML = "<p style='color:red; padding:20px;'>Impossible de charger les données de dégustation. Vérifiez que le fichier 'degustations.json' est présent.</p>";
+  });
+</script>
+</body>
+</html>
