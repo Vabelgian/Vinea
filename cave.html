@@ -1,30 +1,1925 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Vinea</title>
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ma Cave à Vin</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap');
+
+  :root {
+    --bordeaux: #5a1f1f;
+    --bordeaux-light: #7a2f2f;
+    --bordeaux-dark: #3d1515;
+    --creme: #f4f1ec;
+    --creme-dark: #e8e3da;
+    --or: #c9a96e;
+    --or-light: #e0c898;
+    --texte: #2a1a1a;
+    --texte-light: #6b5050;
+    --blanc: #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--creme);
+    color: var(--texte);
+    min-height: 100vh;
+  }
+
+  /* ─── HEADER ─── */
+  .header {
+    background: var(--bordeaux-dark);
+    padding: 36px 40px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 220px; height: 220px;
+    border: 1px solid rgba(201,169,110,0.15);
+    border-radius: 50%;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    top: -70px; right: -70px;
+    width: 300px; height: 300px;
+    border: 1px solid rgba(201,169,110,0.08);
+    border-radius: 50%;
+  }
+  .header-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--creme);
+    letter-spacing: 0.04em;
+  }
+  .header h1 span {
+    color: var(--or);
+    font-style: italic;
+  }
+  .header-subtitle {
+    color: rgba(244,241,236,0.5);
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .compteur {
+    background: rgba(201,169,110,0.15);
+    border: 1px solid rgba(201,169,110,0.3);
+    color: var(--or-light);
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+
+  /* ─── ZONE CONTRÔLES ─── */
+  .controls {
+    background: var(--bordeaux);
+    padding: 18px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(61,21,21,0.3);
+  }
+  .controls-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+
+  /* Barre de recherche */
+  .search-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 180px;
+  }
+  .search-wrap svg {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(244,241,236,0.4);
+    pointer-events: none;
+  }
+  #recherche {
+    width: 100%;
+    background: rgba(244,241,236,0.1);
+    border: 1px solid rgba(244,241,236,0.2);
+    border-radius: 8px;
+    padding: 10px 14px 10px 40px;
+    color: var(--creme);
+    font-family: 'Jost', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  #recherche::placeholder { color: rgba(244,241,236,0.35); }
+  #recherche:focus {
+    border-color: var(--or);
+    background: rgba(244,241,236,0.15);
+  }
+
+  /* Séparateur */
+  .sep {
+    width: 1px;
+    height: 28px;
+    background: rgba(244,241,236,0.2);
+    flex-shrink: 0;
+  }
+
+  /* Bouton Filtrer */
+  #btn-filtrer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(244,241,236,0.1);
+    border: 1px solid rgba(244,241,236,0.25);
+    color: rgba(244,241,236,0.85);
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+    position: relative;
+  }
+  #btn-filtrer:hover {
+    background: rgba(244,241,236,0.18);
+    border-color: var(--or);
+    color: var(--or-light);
+  }
+  #btn-filtrer.has-filtres {
+    border-color: var(--or);
+    color: var(--or-light);
+    background: rgba(201,169,110,0.15);
+  }
+  .filtre-badge {
+    display: none;
+    background: var(--or);
+    color: var(--bordeaux-dark);
+    font-size: 10px;
+    font-weight: 600;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .filtre-badge.visible { display: flex; }
+
+  /* Reset */
+  #reset-filtres {
+    background: transparent;
+    border: none;
+    color: rgba(244,241,236,0.35);
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: color 0.2s;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+  #reset-filtres:hover { color: var(--or-light); }
+
+  /* ─── MODALE FILTRES ─── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(30,10,10,0.55);
+    z-index: 200;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 80px;
+    backdrop-filter: blur(3px);
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--blanc);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 16px;
+    box-shadow: 0 20px 60px rgba(61,21,21,0.3);
+    overflow: hidden;
+    animation: modalIn 0.22s cubic-bezier(0.34,1.3,0.64,1) both;
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(-16px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .modal-header {
+    background: var(--bordeaux-dark);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .modal-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-size: 1.15rem;
+    color: var(--creme);
+    letter-spacing: 0.04em;
+  }
+  .modal-close {
+    background: none;
+    border: none;
+    color: rgba(244,241,236,0.5);
+    cursor: pointer;
+    font-size: 22px;
+    line-height: 1;
+    padding: 2px 6px;
+    border-radius: 6px;
+    transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--or-light); }
+
+  .modal-body {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .modal-section-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--texte-light);
+    margin-bottom: 10px;
+  }
+
+  /* Chips dans la modale */
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .chip {
+    background: var(--creme);
+    border: 1px solid var(--creme-dark);
+    color: var(--texte-light);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.18s;
+    white-space: nowrap;
+    letter-spacing: 0.03em;
+  }
+  .chip:hover {
+    border-color: var(--bordeaux);
+    color: var(--bordeaux);
+  }
+  .chip.actif {
+    background: var(--bordeaux);
+    border-color: var(--bordeaux);
+    color: var(--creme);
+    font-weight: 500;
+  }
+
+  /* Séparateur dans modale */
+  .modal-sep {
+    border: none;
+    border-top: 1px solid var(--creme-dark);
+    margin: 0;
+  }
+
+  .modal-footer {
+    padding: 16px 24px 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    border-top: 1px solid var(--creme-dark);
+  }
+  .btn-modal-reset {
+    background: none;
+    border: 1px solid var(--creme-dark);
+    color: var(--texte-light);
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .btn-modal-reset:hover { border-color: var(--bordeaux); color: var(--bordeaux); }
+  .btn-modal-appliquer {
+    background: var(--bordeaux);
+    border: 1px solid var(--bordeaux);
+    color: var(--creme);
+    padding: 9px 22px;
+    border-radius: 8px;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.18s;
+  }
+  .btn-modal-appliquer:hover { background: var(--bordeaux-light); }
+
+  /* ─── MAIN CONTENT ─── */
+  .main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 40px 60px;
+  }
+
+  /* Message aucun résultat */
+  #aucun-resultat {
+    display: none;
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--texte-light);
+  }
+  #aucun-resultat .emoji { font-size: 40px; margin-bottom: 16px; }
+  #aucun-resultat p { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; }
+
+  /* ─── CARTE VIN ─── */
+  .vin {
+    background: var(--blanc);
+    margin-bottom: 24px;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(90,31,31,0.07);
+    overflow: hidden;
+    transition: box-shadow 0.3s, transform 0.3s;
+    animation: fadeIn 0.4s ease both;
+  }
+  .vin:hover {
+    box-shadow: 0 6px 28px rgba(90,31,31,0.13);
+    transform: translateY(-2px);
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .vin.masque {
+    display: none !important;
+  }
+
+  .entete-vin {
+    display: flex;
+    gap: 0;
+    align-items: stretch;
+  }
+
+  /* Zone photo */
+  .zone-photo {
+    width: 220px;
+    min-width: 220px;
+    background: var(--creme);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 18px;
+    border-right: 1px solid var(--creme-dark);
+  }
+  .photo-bouteille {
+    width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+  }
+  .photo-a-ajouter {
+    width: 100%;
+    min-height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--texte-light);
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  /* Infos */
+  .infos-vin {
+    flex: 1;
+    padding: 24px 28px 20px;
+  }
+
+  /* Tags couleur/pays */
+  .tags-vin {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .tag {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .tag-rouge  { background: #fbeaea; color: #8b2020; border: 1px solid #f0c5c5; }
+  .tag-blanc  { background: #fdf9ee; color: #7a6020; border: 1px solid #e8d88a; }
+  .tag-rose   { background: #fdeef4; color: #8b2050; border: 1px solid #f0c5d8; }
+  .tag-pays   { background: var(--creme-dark); color: var(--texte-light); border: 1px solid #d8d0c5; }
+  .tag-cepage { background: #eef4f0; color: #2a6040; border: 1px solid #c0d8c8; }
+
+  .infos-vin h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: var(--bordeaux-dark);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .infos-vin h3 {
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin: 14px 0 6px;
+  }
+  .infos-vin p { font-size: 14px; font-weight: 300; line-height: 1.6; color: #3a2a2a; margin-bottom: 4px; }
+  .infos-vin p strong { font-weight: 500; color: var(--texte); }
+
+  /* Details */
+  details {
+    border-top: 1px solid var(--creme-dark);
+    margin: 0;
+  }
+  summary {
+    cursor: pointer;
+    padding: 13px 28px;
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--bordeaux);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+    user-select: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: '+';
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--or);
+    line-height: 1;
+  }
+  details[open] summary::after { content: '−'; }
+  summary:hover { background: var(--creme); }
+  details > *:not(summary) {
+    padding: 4px 28px 20px;
+  }
+  details p { font-size: 14px; font-weight: 300; line-height: 1.7; color: #3a2a2a; margin-bottom: 4px; }
+  details p strong { font-weight: 500; }
+
+  /* ─── BADGE STOCK ─── */
+  .badge-stock {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--creme-dark);
+    border: 1px solid #d8d0c5;
+    color: var(--texte-light);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    padding: 3px 9px;
+    border-radius: 20px;
+  }
+  .badge-stock.stock-zero {
+    background: #fbeaea;
+    border-color: #f0c5c5;
+    color: #8b2020;
+  }
+
+  /* ─── TAG STATUT ─── */
+  .tag-cave  { background: #eef4f0; color: #2a6040; border: 1px solid #c0d8c8; }
+  .tag-bu    { background: #f0f0f0; color: #888; border: 1px solid #ddd; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 700px) {
+    .header { padding: 24px 20px 20px; }
+    .controls { padding: 14px 20px; }
+    .main { padding: 20px 20px 50px; }
+    .entete-vin { flex-direction: column; }
+    .zone-photo { width: 100%; border-right: none; border-bottom: 1px solid var(--creme-dark); padding: 16px; }
+    .photo-bouteille { max-height: 160px; }
+    .infos-vin { padding: 16px 20px 14px; }
+    summary { padding: 12px 20px; }
+    details > *:not(summary) { padding: 4px 20px 16px; }
+  }
+</style>
 </head>
 <body>
 
-<header class="topbar">
-  <h1>Vinea</h1>
-</header>
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <h1>Ma <span>Cave</span> à Vin</h1>
+      <p class="header-subtitle">Collection personnelle</p>
+    </div>
+    <div class="compteur" id="compteur">— bouteilles</div>
+  </div>
+</div>
 
-<nav class="bottom-nav">
-  <a href="index.html">Accueil</a>
-  <a href="cave.html">Cave</a>
-  <a href="degustation.html">Dégustation</a>
-  <a href="atlas/index.html">Atlas</a>
-</nav>
+<!-- CONTRÔLES -->
+<div class="controls">
+  <div class="controls-inner">
 
-<main>
-  <h2>Accueil</h2>
-  <p>Ton hub vin 🍷</p>
-  <div id="cave-list"></div>
-</main>
+    <!-- Recherche -->
+    <div class="search-wrap">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input type="text" id="recherche" placeholder="Rechercher un vin, cépage, région…">
+    </div>
 
-<script src="js/app.js"></script>
+    <div class="sep"></div>
+
+    <!-- Bouton Filtrer & Trier -->
+    <button id="btn-filtrer">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/>
+      </svg>
+      Filtrer &amp; Trier
+      <span class="filtre-badge" id="filtre-badge">0</span>
+    </button>
+
+    <button id="reset-filtres" title="Réinitialiser">✕ Réinitialiser</button>
+  </div>
+</div>
+
+<!-- MODALE FILTRES -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal">
+
+    <div class="modal-header">
+      <h2>Filtrer &amp; Trier</h2>
+      <button class="modal-close" id="modal-close">✕</button>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- Couleur -->
+      <div>
+        <div class="modal-section-label">Couleur</div>
+        <div class="chips">
+          <button class="chip actif" data-filtre="couleur" data-valeur="tous">Tous</button>
+          <button class="chip" data-filtre="couleur" data-valeur="rouge">🔴 Rouge</button>
+          <button class="chip" data-filtre="couleur" data-valeur="blanc">🟡 Blanc</button>
+          <button class="chip" data-filtre="couleur" data-valeur="rose">🌸 Rosé</button>
+        </div>
+      </div>
+
+      <hr class="modal-sep">
+
+      <!-- Pays -->
+      <div>
+        <div class="modal-section-label">Pays</div>
+        <div class="chips">
+          <button class="chip actif" data-filtre="pays" data-valeur="tous">Tous</button>
+          <button class="chip" data-filtre="pays" data-valeur="Italie">🇮🇹 Italie</button>
+          <button class="chip" data-filtre="pays" data-valeur="France">🇫🇷 France</button>
+          <button class="chip" data-filtre="pays" data-valeur="Espagne">🇪🇸 Espagne</button>
+          <button class="chip" data-filtre="pays" data-valeur="Afrique du Sud">🇿🇦 Afrique du Sud</button>
+          <button class="chip" data-filtre="pays" data-valeur="Portugal">🇵🇹 Portugal</button>
+        </div>
+      </div>
+
+      <hr class="modal-sep">
+
+      <!-- Cépage -->
+      <div>
+        <div class="modal-section-label">Cépage</div>
+        <div class="chips" id="chips-cepage">
+          <button class="chip actif" data-filtre="cepage" data-valeur="tous">Tous</button>
+          <!-- générés dynamiquement -->
+        </div>
+      </div>
+
+      <hr class="modal-sep">
+
+      <!-- Statut -->
+      <div>
+        <div class="modal-section-label">Statut</div>
+        <div class="chips">
+          <button class="chip actif" data-filtre="statut" data-valeur="tous">Tous</button>
+          <button class="chip" data-filtre="statut" data-valeur="cave">🏠 En cave</button>
+          <button class="chip" data-filtre="statut" data-valeur="bu">✓ Bu</button>
+        </div>
+      </div>
+
+      <hr class="modal-sep">
+
+      <!-- Tri -->
+      <div>
+        <div class="modal-section-label">Trier par</div>
+        <div class="chips">
+          <button class="chip actif" data-filtre="tri" data-valeur="defaut">Par défaut</button>
+          <button class="chip" data-filtre="tri" data-valeur="alpha-asc">A → Z</button>
+          <button class="chip" data-filtre="tri" data-valeur="alpha-desc">Z → A</button>
+          <button class="chip" data-filtre="tri" data-valeur="pays">Par pays</button>
+          <button class="chip" data-filtre="tri" data-valeur="cepage">Par cépage</button>
+        </div>
+      </div>
+
+    </div><!-- modal-body -->
+
+    <div class="modal-footer">
+      <button class="btn-modal-reset" id="btn-modal-reset">Réinitialiser</button>
+      <button class="btn-modal-appliquer" id="btn-modal-appliquer">Appliquer</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <div id="cave">
+
+    <!-- 1. Podere Il Carnasciale -->
+    <div class="vin"
+         data-couleur="rouge"
+         data-pays="Italie"
+         data-cepage="Caberlot"
+         data-region="Toscane"
+         data-style="elegant complexe"
+         data-statut="cave"
+         data-stock="1">
+      <div class="entete-vin">
+        <div class="zone-photo">
+          <img src="images/il-carnasciale-2020.jpg" alt="Podere Il Carnasciale 2020" class="photo-bouteille">
+        </div>
+        <div class="infos-vin">
+          <div class="tags-vin">
+            <span class="tag tag-rouge">Rouge</span>
+            <span class="tag tag-pays">🇮🇹 Italie – Toscane</span>
+            <span class="tag tag-cepage">Caberlot</span>
+          </div>
+          <h2>Podere Il Carnasciale – Il Carnasciale 2020</h2>
+          <h3>1. Identité</h3>
+          <p><strong>Pays / région :</strong> Italie – Toscane</p>
+          <p><strong>Cépage :</strong> Caberlot</p>
+          <p><strong>Style :</strong> élégant, complexe, tanins fins, vin de dégustation avec belle évolution</p>
+          <h3>2. Profil</h3>
+          <p>Podere Il Carnasciale est un domaine toscan culte entièrement dédié au Caberlot, un croisement naturel entre Cabernet Franc et Merlot, cultivé exclusivement sur la propriété. C'est ce qui rend ces vins extrêmement rares et recherchés.</p>
+          <p>Il Carnasciale est l'expression plus accessible du domaine, combinant intensité, structure et une approche déjà très aboutie dans le millésime 2020 : sombre, épicé et sculpté.</p>
+          <p><strong>Notes experts :</strong> 93/100 Wine Advocate – 17+/20 Jancis Robinson – 93/100 James Suckling – 93/100 Peak Wines</p>
+        </div>
+      </div>
+      <details>
+        <summary>3. Dégustation</summary>
+        <p><strong>Couleur :</strong> Ruby quasiment encre</p>
+        <p><strong>Nez :</strong> Cassis, prune et cerise noire, herbes sauvages, graphite, tabac, pointe de poivre</p>
+        <p><strong>Bouche :</strong> Concentré, vertical, savoureux, minéral persistant, finale légèrement saline</p>
+      </details>
+      <details>
+        <summary>4. Infos techniques</summary>
+        <p><strong>Vinification :</strong> Fermentation en cuves inox et bois, longue macération, élevage ~18 mois en barriques de chêne français (partiellement neuves)</p>
+        <p><strong>Classification :</strong> Toscana IGT</p>
+        <p><strong>Garde :</strong> 10–15 ans</p>
+        <p><strong>Carafage :</strong> au moins 1h, évolution dans le verre recommandée</p>
+        <p><strong>Température :</strong> 16–18°C</p>
+        <p><strong>Accords mets :</strong> viandes rouges, plats mijotés, cuisine toscane</p>
+      </details>
+
+    </div>
+
+    <!-- 2. Andrius Sauvignon Blanc -->
+    <div class="vin"
+         data-couleur="blanc"
+         data-pays="Italie"
+         data-cepage="Sauvignon Blanc Pinot Bianco Chardonnay"
+         data-region="Alto Adige"
+         data-style="tendu cristallin aromatique"
+         data-statut="cave"
+         data-stock="1">
+      <div class="entete-vin">
+        <div class="zone-photo">
+          <img src="images/andrius-sauvignon-blanc-alto-adige-doc.jpg" alt="Andrius Sauvignon Blanc Alto Adige DOC" class="photo-bouteille">
+        </div>
+        <div class="infos-vin">
+          <div class="tags-vin">
+            <span class="tag tag-blanc">Blanc</span>
+            <span class="tag tag-pays">🇮🇹 Italie – Alto Adige</span>
+            <span class="tag tag-cepage">Sauvignon Blanc</span>
+          </div>
+          <h2>Andrius Sauvignon Blanc Alto Adige DOC</h2>
+          <h3>1. Identité</h3>
+          <p><strong>Pays / région :</strong> Italie – Alto Adige</p>
+          <p><strong>Cépage :</strong> 60% Pinot Bianco, 30% Chardonnay, 10% Sauvignon Blanc</p>
+          <p><strong>Style :</strong> Tendu, cristallin, aromatique</p>
+          <h3>2. Profil</h3>
+          <p>Ce vin est vraiment l'école Alto Adige : pureté, fraîcheur, précision aromatique, gros travail sur la minéralité. On est dans quelque chose de lumineux et énergique.</p>
+          <p>La coopérative Cantina Terlano a été fondée en 1893 et est aujourd'hui l'une des références de l'Alto Adige. Leur philosophie repose sur des vins de grande longévité, grâce à une vinification sur lies prolongée.</p>
+          <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – 95/100 James Suckling – 93 Peak Wines</p>
+        </div>
+      </div>
+      <details>
+        <summary>3. Dégustation</summary>
+        <p><strong>Couleur :</strong> Paille à reflets verts</p>
+        <p><strong>Nez :</strong> Pomme verte et pêche blanche, avec des nuances de mélisse et menthe, puis des notes persistantes de pêche en bouche</p>
+        <p><strong>Bouche :</strong> Concentrée et fraîche avec un fort extrait, finale longue et saline</p>
+      </details>
+      <details>
+        <summary>4. Infos techniques</summary>
+        <p><strong>Vinification :</strong> Vinification sur lies prolongée — souvent plusieurs années — qui développe des arômes secondaires et tertiaires complexes.</p>
+        <p><strong>Classification :</strong> Alto Adige DOC Sauvignon Blanc</p>
+        <p><strong>Garde :</strong> 5–8 ans</p>
+        <p><strong>Carafage :</strong> Non</p>
+        <p><strong>Température :</strong> 9–11°C</p>
+        <p><strong>Accords mets :</strong> ceviche, sashimi, asperges vertes, burrata citronnée, sole meunière, risotto aux herbes, fromage de chèvre frais</p>
+      </details>
+      
+    </div>
+
+    <!-- 3. Livio Felluga Potentilla -->
+    <div class="vin"
+         data-couleur="blanc"
+         data-pays="Italie"
+         data-cepage="Sauvignon Blanc"
+         data-region="Friuli Colli Orientali"
+         data-style="large profond gastronomique"
+         data-statut="cave"
+         data-stock="1">
+      <div class="entete-vin">
+        <div class="zone-photo">
+          <img src="images/livio-felluga-potentilla-sauvignon-blanc.jpg" alt="Livio Felluga Potentilla" class="photo-bouteille">
+        </div>
+        <div class="infos-vin">
+          <div class="tags-vin">
+            <span class="tag tag-blanc">Blanc</span>
+            <span class="tag tag-pays">🇮🇹 Italie – Friuli</span>
+            <span class="tag tag-cepage">Sauvignon Blanc</span>
+          </div>
+          <h2>Livio Felluga "Potentilla" Sauvignon Blanc</h2>
+          <h3>1. Identité</h3>
+          <p><strong>Pays / région :</strong> Italie – Friuli Colli Orientali</p>
+          <p><strong>Cépage :</strong> Sauvignon Blanc</p>
+          <p><strong>Style :</strong> Large, profond, gastronomique</p>
+          <h3>2. Profil</h3>
+          <p>Le Potentilla joue dans un registre plus sérieux et plus profond. Livio Felluga est une référence absolue du Frioul, et cette cuvée est un peu pensée comme un cru de Sauvignon. Vieilles vignes issues de sélection massale, élevage plus travaillé, texture plus ample.</p>
+          <p>C'est une cuvée mono-cépage, mono-parcelle lancée avec le millésime 2018, issue d'une vigne plantée en 1975 sur les collines de Friuli Colli Orientali.</p>
+          <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – 94/100 James Suckling – 93 Peak Wines</p>
+        </div>
+      </div>
+      <details>
+        <summary>3. Dégustation</summary>
+        <p><strong>Couleur :</strong> Jaune paille clair avec des reflets verdâtres</p>
+        <p><strong>Nez :</strong> Fleur de sureau, feuilles d'ortie, fleur de prunier, gardénia blanc, pêche blanche, ananas, mangue et crème au citron</p>
+        <p><strong>Bouche :</strong> Élégant et minéral, avec une levure variétale, des fruits mûrs et plus de texture qu'un simple Sauvignon en acier inoxydable</p>
+      </details>
+      <details>
+        <summary>4. Infos techniques</summary>
+        <p><strong>Vinification :</strong> Les raisins sont macérés sur peaux quelques heures, puis le vin passe en fûts de chêne avec fermentation malolactique d'un mois.</p>
+        <p><strong>Classification :</strong> Friuli Colli Orientali DOC Sauvignon Blanc</p>
+        <p><strong>Garde :</strong> 10–15 ans</p>
+        <p><strong>Carafage :</strong> 30 minutes, évolution dans le verre recommandée</p>
+        <p><strong>Température :</strong> 10–12°C</p>
+        <p><strong>Accords mets :</strong> volaille à la crème légère, homard, lotte, risotto aux cèpes, turbot, ravioles aux herbes, vieux comté</p>
+      </details>
+      
+    </div>
+
+    <!-- 4. Ridgeback Cabernet Franc -->
+    <div class="vin"
+         data-couleur="rouge"
+         data-pays="Afrique du Sud"
+         data-cepage="Cabernet Franc"
+         data-region="Paarl"
+         data-style="elegant expressif fruité"
+         data-statut="cave"
+         data-stock="1">
+      <div class="entete-vin">
+        <div class="zone-photo">
+          <img src="images/Ridgeback-Cab-Franc-2020.webp" alt="Ridgeback Cabernet Franc 2020" class="photo-bouteille">
+        </div>
+        <div class="infos-vin">
+          <div class="tags-vin">
+            <span class="tag tag-rouge">Rouge</span>
+            <span class="tag tag-pays">🇿🇦 Afrique du Sud – Paarl</span>
+            <span class="tag tag-cepage">Cabernet Franc</span>
+          </div>
+          <h2>Ridgeback Cabernet Franc 2020</h2>
+          <h3>1. Identité</h3>
+          <p><strong>Pays / région :</strong> Afrique du Sud – Paarl</p>
+          <p><strong>Cépage :</strong> Cabernet Franc</p>
+          <p><strong>Style :</strong> Élégant, expressif</p>
+          <h3>2. Profil</h3>
+          <p>Cabernet Franc sud-africain élégant et expressif issu de Paarl. Le vin séduit par son équilibre entre fruit rouge mûr, fraîcheur naturelle et notes épicées raffinées.</p>
+          <p>Accessible dès aujourd'hui après aération, il possède néanmoins un potentiel d'évolution intéressant. Un rouge sincère, précis et gastronomique.</p>
+          <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – 94/100 James Suckling – N/a Peak Wines</p>
+        </div>
+      </div>
+      <details>
+        <summary>3. Dégustation</summary>
+        <p><strong>Couleur :</strong> Rubis, rouge profond</p>
+        <p><strong>Nez :</strong> Arômes de fruits rouges mûrs (cerise, baies), complétés par des touches épicées</p>
+        <p><strong>Bouche :</strong> Corps présent, tanins modérés, bon équilibre entre fruit et acidité</p>
+      </details>
+      <details>
+        <summary>4. Infos techniques</summary>
+        <p><strong>Vinification :</strong> Maturation en barriques, mélange de fûts de différents âges</p>
+        <p><strong>Classification :</strong> (à compléter)</p>
+        <p><strong>Garde :</strong> 3–7 ans</p>
+        <p><strong>Carafage :</strong> 1h minimum</p>
+        <p><strong>Température :</strong> 16–18°C</p>
+        <p><strong>Accords mets :</strong> viandes grillées, gibiers, plats corsés, fromages à pâte dure</p>
+      </details>
+      <details>
+        <summary>5. Journal personnel</summary>
+        <p><strong>Date de dégustation :</strong> 25 décembre 2025</p>
+        <p><strong>Occasion :</strong> Repas de Noël</p>
+        <p><strong>Avec quoi :</strong> Filet de canard aux fruits rouges</p>
+        <p><strong>Ressenti global :</strong> Bonne expérience, fort fruité et frais, très expressif au niveau du nez. Le côté épicé ressort vraiment bien</p>
+        <p><strong>Évolution dans le verre :</strong> 30 minutes de carafage et évolution dans le verre</p>
+        <p><strong>Note personnelle :</strong> 1ère bouteille déjà agréable. Pas encore à son sommet. Attendre fin 2027 pour apogée. Carafer 1h minimum.</p>
+      </details>
+    </div>
+
+    <!-- 5. Orpheus & Raven Pinotage -->
+    <div class="vin"
+         data-couleur="rouge"
+         data-pays="Afrique du Sud"
+         data-cepage="Pinotage"
+         data-region="Simonsberg Bottelary Hills Durbanville"
+         data-style="nerveux festif intense"
+         data-statut="cave"
+         data-stock="2">
+      <div class="entete-vin">
+        <div class="zone-photo">
+          <img src="images/OrpheusTheRaven-No7.jpg" alt="Orpheus & Raven n°7 Pinotage" class="photo-bouteille">
+        </div>
+        <div class="infos-vin">
+          <div class="tags-vin">
+            <span class="tag tag-rouge">Rouge</span>
+            <span class="tag tag-pays">🇿🇦 Afrique du Sud</span>
+            <span class="tag tag-cepage">Pinotage</span>
+          </div>
+          <h2>Orpheus & Raven n°7 Pinotage 2022</h2>
+          <h3>1. Identité</h3>
+          <p><strong>Pays / région :</strong> Afrique du Sud – Simonsberg, Bottelary Hills, Durbanville</p>
+          <p><strong>Cépage :</strong> Pinotage</p>
+          <p><strong>Style :</strong> Nerveux, festif</p>
+          <h3>2. Profil</h3>
+          <p>Pinotage haut de gamme au style moderne, intense et sophistiqué. Élevé longuement en barriques françaises et américaines, il développe un profil profond mêlant fruits noirs mûrs, violette, cacao, épices douces et nuances toastées.</p>
+          <p>Encore jeune, le vin gagne fortement à être carafé et devrait évoluer avec élégance au fil des années.</p>
+          <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – 91/100 James Suckling – N/a Peak Wines</p>
+        </div>
+      </div>
+      <details>
+        <summary>3. Dégustation</summary>
+        <p><strong>Couleur :</strong> (à compléter)</p>
+        <p><strong>Nez :</strong> Baies (blueberry, framboise, mulberry), touches florales (violette, lavande), nuances de chocolat noir, amande grillée, pointe de bois toasté</p>
+        <p><strong>Bouche :</strong> Entrée ronde, structure tannique élégante, bonne acidité, finale juvénile mais prometteuse</p>
+      </details>
+      <details>
+        <summary>4. Infos techniques</summary>
+        <p><strong>Vinification :</strong> 18 mois en barriques (1er, 2e, 3e remplissage ; 50% de fûts neufs)</p>
+        <p><strong>Classification :</strong> (à compléter)</p>
+        <p><strong>Garde :</strong> 10–15 ans</p>
+        <p><strong>Carafage :</strong> 1h, évolution dans le verre recommandée</p>
+        <p><strong>Température :</strong> 16–18°C</p>
+        <p><strong>Accords mets :</strong> Viandes rouges, barbecue, côtes d'agneau, plats fumés</p>
+      </details>
+      
+    </div>
+
+    <!-- 6. Vilafonté Seriously Old Dirt -->
+    <div class="vin"
+         data-couleur="rouge"
+         data-pays="Afrique du Sud"
+         data-cepage="Cabernet Sauvignon Merlot Malbec Cabernet Franc"
+         data-region="Western Cape"
+         data-style="elegant puissant bordeaux"
+         data-statut="cave"
+         data-stock="2">
+      <div class="entete-vin">
+        <div class="zone-photo">
+          <img src="images/vilafontéseriouslyolddirt.png" alt="Vilafonté Seriously Old Dirt 2020" class="photo-bouteille">
+        </div>
+        <div class="infos-vin">
+          <div class="tags-vin">
+            <span class="tag tag-rouge">Rouge</span>
+            <span class="tag tag-pays">🇿🇦 Afrique du Sud – Western Cape</span>
+            <span class="tag tag-cepage">Assemblage bordelais</span>
+          </div>
+          <h2>Vilafonté Seriously Old Dirt 2020</h2>
+          <h3>1. Identité</h3>
+          <p><strong>Pays / région :</strong> Afrique du Sud – Western Cape</p>
+          <p><strong>Cépage :</strong> 86% Cabernet Sauvignon, 8% Merlot, 4% Malbec, 2% Cabernet Franc</p>
+          <p><strong>Style :</strong> Élégant, grand Bordeaux</p>
+          <h3>2. Profil</h3>
+          <p>Assemblage bordelais premium provenant des célèbres sols anciens du Western Cape sud-africain. Le vin allie puissance maîtrisée, précision et profondeur avec des arômes de mûre, prune noire, tabac, cacao et épices nobles.</p>
+          <p>Encore dans sa jeunesse, il devrait gagner en complexité et en texture au fil du temps. Un vin ambitieux et élégant, idéal pour les grandes occasions.</p>
+          <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – 91/100 James Suckling – N/a Peak Wines</p>
+        </div>
+      </div>
+      <details>
+        <summary>3. Dégustation</summary>
+        <p><strong>Couleur :</strong> (à compléter)</p>
+        <p><strong>Nez :</strong> Cerise noire, prune, épices de boulangerie, vanille, tabac, noisette, touche de réglisse ou de cacao</p>
+        <p><strong>Bouche :</strong> Vin corsé, tanins présents mais mûrs, acidité soutenant la structure, belle longévité</p>
+      </details>
+      <details>
+        <summary>4. Infos techniques</summary>
+        <p><strong>Vinification :</strong> (à compléter)</p>
+        <p><strong>Classification :</strong> (à compléter)</p>
+        <p><strong>Garde :</strong> 10–15 ans</p>
+        <p><strong>Carafage :</strong> 2–3h, évolution dans le verre recommandée</p>
+        <p><strong>Température :</strong> 16–18°C</p>
+        <p><strong>Accords mets :</strong> Filet de bœuf Wellington, carré d'agneau rôti au thym, civet de cerf, purée truffée</p>
+      </details>
+      
+    </div>
+
+    <!-- 7. Salvatore M Barbaresco -->
+    <div class="vin"
+         data-couleur="rouge"
+         data-pays="Italie"
+         data-cepage="Nebbiolo"
+         data-region="Piémont"
+         data-style="structuré floral gastronomique"
+         data-statut="cave"
+         data-stock="5">
+      <div class="entete-vin">
+        <div class="zone-photo">
+          <img src="images/salvatore-m-barbaresco-docg-21.webp" alt="Salvatore M Barbaresco 2021" class="photo-bouteille">
+        </div>
+        <div class="infos-vin">
+          <div class="tags-vin">
+            <span class="tag tag-rouge">Rouge</span>
+            <span class="tag tag-pays">🇮🇹 Italie – Piémont</span>
+            <span class="tag tag-cepage">Nebbiolo</span>
+          </div>
+          <h2>Salvatore M Barbaresco 2021</h2>
+          <h3>1. Identité</h3>
+          <p><strong>Pays / région :</strong> Piémont</p>
+          <p><strong>Cépage :</strong> Nebbiolo</p>
+          <p><strong>Style :</strong> Structuré, floral, gastronomique</p>
+          <h3>2. Profil</h3>
+          <p>Le Barbaresco 2021 de Salvatore M. est typiquement dans le style classique du Piémont : du nebbiolo assez pur, structuré mais élégant, avec des tanins présents et une belle fraîcheur. C'est un millésime réputé très réussi dans les Langhe.</p>
+          <p>C'est un vin qui gagnera à vieillir en cave quelques années.</p>
+          <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – N/a James Suckling – N/a Peak Wines</p>
+        </div>
+      </div>
+      <details>
+        <summary>3. Dégustation</summary>
+        <p><strong>Couleur :</strong> Rouge profond</p>
+        <p><strong>Nez :</strong> Fleurs puis fruits rouges. Arômes tertiaires avec le temps</p>
+        <p><strong>Bouche :</strong> Tanins fermes, un peu asséchant mais fraîcheur et longueur</p>
+      </details>
+      <details>
+        <summary>4. Infos techniques</summary>
+        <p><strong>Vinification :</strong> (à compléter)</p>
+        <p><strong>Classification :</strong> Barbaresco DOCG</p>
+        <p><strong>Garde :</strong> 10–15 ans</p>
+        <p><strong>Carafage :</strong> 2h+, évolution dans le verre recommandée</p>
+        <p><strong>Température :</strong> 16–18°C</p>
+        <p><strong>Accords mets :</strong> Viande rouge, plats italiens typiques (ragù), volaille noble, plats piémontaises et truffes</p>
+      </details>
+      <details>
+        <summary>5. Journal personnel</summary>
+        <p><strong>Date de dégustation :</strong> 28 décembre 2025</p>
+        <p><strong>Occasion :</strong> Repas de fin d'année</p>
+        <p><strong>Avec quoi :</strong> Cuisse de pintade, jus court et champignons</p>
+        <p><strong>Ressenti global :</strong> Vin clairement trop jeune, quelques années de vieillissement en cave feront du bien</p>
+        <p><strong>Évolution dans le verre :</strong> Clairement une évolution dans le verre mais limitée</p>
+        <p><strong>Note personnelle :</strong> Ouvrir une 2e bouteille en 2028 pas avant</p>
+      </details>
+    </div>
+
+    <!-- 8. Fontanafredda Barolo -->
+    <div class="vin"
+         data-couleur="rouge"
+         data-pays="Italie"
+         data-cepage="Nebbiolo"
+         data-region="Piémont Serralunga d'Alba"
+         data-style="puissant raffiné gastronomique"
+         data-statut="cave"
+         data-stock="1">
+      <div class="entete-vin">
+        <div class="zone-photo">
+          <img src="images/fontanafredda-barolo-serralunga-dalba-2019.jpg" alt="Fontanafredda Barolo Serralunga d'Alba 2019" class="photo-bouteille">
+        </div>
+        <div class="infos-vin">
+          <div class="tags-vin">
+            <span class="tag tag-rouge">Rouge</span>
+            <span class="tag tag-pays">🇮🇹 Italie – Piémont</span>
+            <span class="tag tag-cepage">Nebbiolo</span>
+          </div>
+          <h2>Fontanafredda Barolo Serralunga d'Alba 2019</h2>
+          <h3>1. Identité</h3>
+          <p><strong>Pays / région :</strong> Italie – Piémont</p>
+          <p><strong>Cépage :</strong> Nebbiolo</p>
+          <p><strong>Style :</strong> Puissant, raffiné, gastronomique</p>
+          <h3>2. Profil</h3>
+          <p>Ce vin est issu de la commune de Serralunga connue pour ses vins de garde.</p>
+          <p>C'est un vin qui allie élégance, puissance et potentiel de garde – parfait pour un moment célébratoire.</p>
+          <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – 92/100 James Suckling – N/a Peak Wines</p>
+        </div>
+      </div>
+      <details>
+        <summary>3. Dégustation</summary>
+        <p><strong>Couleur :</strong> (à compléter)</p>
+        <p><strong>Nez :</strong> Très expressif, arômes de rose fanée, épices, vanille, sous-bois, cerise, réglisse et cacao</p>
+        <p><strong>Bouche :</strong> Sec, étonnamment velouté et harmonieux. Bonne structure tannique, acidité équilibrée, finale persistante et élégante</p>
+      </details>
+      <details>
+        <summary>4. Infos techniques</summary>
+        <p><strong>Vinification :</strong> (à compléter)</p>
+        <p><strong>Classification :</strong> (à compléter)</p>
+        <p><strong>Garde :</strong> 10–15 ans</p>
+        <p><strong>Carafage :</strong> 2h+, évolution dans le verre recommandée</p>
+        <p><strong>Température :</strong> 18–20°C</p>
+        <p><strong>Accords mets :</strong> Viandes rouges grillées ou braisées, gibier, sauces riches, fromages puissants</p>
+      </details>
+      
+    </div>
+
+    <!-- 9. Domaine du Colombier Chablis -->
+    <div class="vin"
+         data-couleur="blanc"
+         data-pays="France"
+         data-cepage="Chardonnay"
+         data-region="Chablis Bourgogne"
+         data-style="minéral fruité tendu"
+         data-statut="cave"
+         data-stock="1">
+      <div class="entete-vin">
+        <div class="zone-photo">
+          <img src="images/chablis-1er-cru-fourchaume-domaine-du-colombier-2022.png" alt="Domaine du Colombier Chablis Fourchaume 2022" class="photo-bouteille">
+        </div>
+        <div class="infos-vin">
+          <div class="tags-vin">
+            <span class="tag tag-blanc">Blanc</span>
+            <span class="tag tag-pays">🇫🇷 France – Chablis</span>
+            <span class="tag tag-cepage">Chardonnay</span>
+          </div>
+          <h2>Domaine du Colombier Chablis 1er Cru "Fourchaume" 2022</h2>
+          <h3>1. Identité</h3>
+          <p><strong>Pays / région :</strong> France – Chablis, Bourgogne</p>
+          <p><strong>Cépage :</strong> Chardonnay</p>
+          <p><strong>Style :</strong> Minéral, fruité, tendu</p>
+          <h3>2. Profil</h3>
+          <p>Le domaine est situé à 4 km de Chablis, dans la commune de Fontenay-Près-Chablis. Fourchaume est l'un des premiers crus les plus réputés de Chablis, avec une exposition favorable au sud et des sols calcaires de haute qualité.</p>
+          <p>Une exposition favorable et des sols calcaires y créent un vin distinctif, avec des saveurs rondes de citron, pêche blanche et pamplemousse.</p>
+          <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – 92/100 James Suckling – N/a Peak Wines</p>
+        </div>
+      </div>
+      <details>
+        <summary>3. Dégustation</summary>
+        <p><strong>Couleur :</strong> Jaune caractéristique aux reflets subtils blanc-vert, limpide et vive</p>
+        <p><strong>Nez :</strong> Généreux, presque tropical, fruits mûrs et croquants, citron et pamplemousse</p>
+        <p><strong>Bouche :</strong> Sec, avec un soupçon de « pierre à feu » et une très bonne longueur. Minéralité fraîche, signature classique du Chablis</p>
+      </details>
+      <details>
+        <summary>4. Infos techniques</summary>
+        <p><strong>Vinification :</strong> Méthodes traditionnelles bourguignonnes sans bois (inox), ce qui préserve la pureté et la minéralité</p>
+        <p><strong>Classification :</strong> Chablis 1er Cru AOC</p>
+        <p><strong>Garde :</strong> 6–8 ans</p>
+        <p><strong>Carafage :</strong> Non</p>
+        <p><strong>Température :</strong> 10–12°C</p>
+        <p><strong>Accords mets :</strong> Noix de Saint-Jacques, poissons en sauce, viandes blanches, huîtres, fruits de mer, fromage de chèvre frais</p>
+      </details>
+      
+    </div>
+
+    <!-- 10. Domaine Wach Gewurtzaminer "Coeur de Glace" -->
+    <div class="vin"
+         data-couleur="blanc"
+         data-pays="France"
+         data-cepage="Gewurtzaminer"
+         data-region="Alsace"
+         data-style="Aromatique"
+         data-statut="cave"
+         data-stock="2">
+      <div class="entete-vin">
+        <div class="zone-photo">
+          <img src="images/Gewurz+Coeur+de+Glace+PNG-640w.png" alt="Domaine Wach Gewurtzaminer "Coeur de Glace"" class="photo-bouteille">
+        </div>
+        <div class="infos-vin">
+          <div class="tags-vin">
+            <span class="tag tag-blanc">Blanc</span>
+            <span class="tag tag-pays">🇫🇷 France – Alsace</span>
+            <span class="tag tag-cepage">Gewurtzaminer</span>
+          </div>
+          <h2>Domaine Wach Gewurtzaminer "Coeur de Glace"</h2>
+          <h3>1. Identité</h3>
+          <p><strong>Pays / région :</strong> France – Alsace</p>
+          <p><strong>Cépage :</strong> Gewurtzaminer</p>
+          <p><strong>Style :</strong> élégant, frais</p>
+          <h3>2. Profil</h3>
+          <p>La cuvée Cœur de Glace fait partie des « vins rares » du domaine, disponibles en quantités très limitées.</p>
+          <p>Le concept : “réalisée dans l’esprit d’un vin de glace”. Autrement dit, une vendange avec raisins concentrés par gelée ou forte altération (semblable à un vin de glace)..</p>
+          <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – N/a James Suckling – N/a Peak Wines</p>
+        </div>
+      </div>
+      <details>
+        <summary>3. Dégustation</summary>
+        <p><strong>Couleur :</strong> Blanc jaunâtre</p>
+        <p><strong>Nez :</strong> Très expressif :
+Litchi, rose, fruits de la passion, mangue mûre
+Notes miellées, parfois un peu d’épices douces et une touche citronnée qui allège l’ensemble
+À l’ouverture, il peut être un peu discret : n’hésite pas à le laisser s’aérer 10-15 min dans le verre.</p>
+        <p><strong>Bouche :</strong> Texture veloutée et ample
+Bel équilibre entre sucrosité et fraîcheur acide (typique des bons moelleux d’Alsace)
+Finale longue, légèrement épicée, sur les fruits exotiques confits</p>
+      </details>
+      <details>
+        <summary>4. Infos techniques</summary>
+        <p><strong>Vinification :</strong> A Complèter</p>
+        <p><strong>Classification :</strong> A compléter</p>
+        <p><strong>Garde :</strong> 4–6 ans</p>
+        <p><strong>Carafage :</strong> Non, mais laisser respirer dans le verre</p>
+        <p><strong>Température :</strong> 10–12°C</p>
+        <p><strong>Accords mets :</strong> foie gras (classique des vins moelleux d’Alsace)
+Des desserts aux fruits exotiques, ou à l’abricot-poire. Le site du domaine suggère tarte à la poire ou à l’abricot et fromage à pate dure.</p>
+      </details>
+      
+    </div>
+
+    <!-- 11. Domaine Colbois Chablis 2023 -->
+    <div class="vin"
+         data-couleur="blanc"
+         data-pays="France"
+         data-cepage="Chardonnay"
+         data-region="Chablis Bourgogne"
+         data-style="Minéral"
+         data-statut="cave"
+         data-stock="5">
+      <div class="entete-vin">
+        <div class="zone-photo">
+          <img src="images/chablis-2023-domaine-colbois.png" alt="Domaine Colbois Chablis 2023" class="photo-bouteille">
+        </div>
+        <div class="infos-vin">
+          <div class="tags-vin">
+            <span class="tag tag-blanc">Blanc</span>
+            <span class="tag tag-pays">🇫🇷 France – Bourgogne</span>
+            <span class="tag tag-cepage">Chardonnay</span>
+          </div>
+          <h2>Domaine Colbois Chablis</h2>
+          <h3>1. Identité</h3>
+          <p><strong>Pays / région :</strong> France – Chablis, Bourgogne</p>
+          <p><strong>Cépage :</strong> Chardonnay</p>
+          <p><strong>Style :</strong> Minéral, Pierre à fusil, aromatique</p>
+          <h3>2. Profil</h3>
+          <p>100 % Chardonnay, vinifié en cuve inox avec élevage sur lies fines, ce qui lui donne de la fraîcheur et cette minéralité caractéristique du Chablis. Robe paille, nez d’agrumes et notes minérales, joli équilibre et longueur sympa.</p>
+          <p>Domaine Colbois, c’est un producteur pas hyper « célèbre » comme Raveneau ou Dauvissat, mais un vignoble respecté localement, produisant un Chablis franc, minéral, bien fait et qui correspond bien à l’idée que l’on se fait du style classique.</p>
+          <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – N/a James Suckling – N/a Peak Wines</p>
+        </div>
+      </div>
+      <details>
+        <summary>3. Dégustation</summary>
+        <p><strong>Couleur :</strong> A compléter</p>
+        <p><strong>Nez :</strong> Pomme verte, zeste, citron, pamplemousse, pierre humide</p>
+        <p><strong>Bouche :</strong> Attaque fraiche, vive, acidité bien tendue, finale saline</p>
+      </details>
+      <details>
+        <summary>4. Infos techniques</summary>
+        <p><strong>Vinification :</strong> Ils jouent plutôt la carte de la vinification moderne + tradition : cuves inox thermo-régulées, élevage sur lies fines, et parfois un petit passage en fût pour certaines cuvées..</p>
+        <p><strong>Classification :</strong> Chablis AOC</p>
+        <p><strong>Garde :</strong> 2–5 ans</p>
+        <p><strong>Carafage :</strong> Non</p>
+        <p><strong>Température :</strong> 10–11°C</p>
+        <p><strong>Accords mets :</strong> fruits de mer et crustacés, fromage frais, tartare de saumon</p>
+      </details>
+      
+    </div>
+
+    <!-- 12. Costa di Bussia - Campo di Bui 2016 -->
+    <div class="vin"
+         data-couleur="rouge"
+         data-pays="Italie"
+         data-cepage="Nebollio"
+         data-region="Piémont"
+         data-style="large profond gastronomique"
+         data-statut="cave"
+         data-stock="1">
+      <div class="entete-vin">
+        <div class="zone-photo">
+          <img src="images/Campodeibuoi.png" alt="Costa di Bussia - Campo di Bui 2016" class="photo-bouteille">
+        </div>
+        <div class="infos-vin">
+          <div class="tags-vin">
+            <span class="tag tag-rouge">Rouge</span>
+            <span class="tag tag-pays">🇮🇹 Italie – Piémont</span>
+            <span class="tag tag-cepage">Nebbolio</span>
+          </div>
+          <h2>Costa di Bussia - Campo di Bui 2016</h2>
+          <h3>1. Identité</h3>
+          <p><strong>Pays / région :</strong> Italie – Piémont</p>
+          <p><strong>Cépage :</strong> Nebbolio</p>
+          <p><strong>Style :</strong> Large, profond, gastronomique</p>
+          <h3>2. Profil</h3>
+          <p>Le Costa di Bussia - Tenuta Arnulfo, domaine fondé en 1874 par Luigi Arnulfo, une légende du Barolo impliqué dans les premières exportations vers les États-Unis. 
+            La propriété appartient aujourd'hui à la famille Sartirano, dont les racines piémontaises remontent à la fin des années 1800, et comprend seulement 11 acres de vignes de nebbiolo. .</p>
+          <p>Vigna Campo dei Buoi, située dans la zone de Bussia à Monforte d'Alba. Le nom "Campo dei Buoi" (champ des bœufs) est un nom historique transmis par les habitants locaux et mentionné dans le document d'achat du domaine signé par Luigi Arnulfo. .</p>
+          <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – N/a James Suckling – N/a Peak Wines</p>
+        </div>
+      </div>
+      <details>
+        <summary>3. Dégustation</summary>
+        <p><strong>Couleur :</strong> Rouge profond</p>
+        <p><strong>Nez :</strong> Des arômes complexes de fruits rouges confits (cerise, griotte), de roses fanées, de violette, avec des notes tertiaires de cuir, de truffe, de tabac et d'épices douces. Le terroir de Bussia apporte souvent une élégance particulière.</p>
+        <p><strong>Bouche :</strong> Une structure tannique encore présente mais qui commence à se fondre, une belle acidité caractéristique du nebbiolo qui apporte de la fraîcheur, des saveurs de fruits mûrs, de réglisse, et une longue finale persistante avec peut-être des notes de goudron et de terre humide.</p>
+      </details>
+      <details>
+        <summary>4. Infos techniques</summary>
+        <p><strong>Vinification :</strong> Élevage de 30 mois en grands fûts de chêne slavon de 5000 litres, suivi d'un affinage en bouteill.</p>
+        <p><strong>Classification :</strong> Barolo DOC</p>
+        <p><strong>Garde :</strong> 10–15 ans</p>
+        <p><strong>Carafage :</strong> 2h+, évolution dans le verre recommandée</p>
+        <p><strong>Température :</strong> 16–18°C</p>
+        <p><strong>Accords mets :</strong> A complèter</p>
+      </details>
+      
+    </div>
+
+    <!-- 13. Tosone Nero d'Avola 2021 -->
+    <div class="vin"
+         data-couleur="rouge"
+         data-pays="Italie"
+         data-cepage="Nero d'Avola"
+         data-region="Sicile"
+         data-style="Expressif Puissant Solaire"
+         data-statut="cave"
+         data-stock="3">
+      <div class="entete-vin">
+        <div class="zone-photo">
+          <img src="images/Tosone.png" alt="Tosone Nero D'Avola 2021" class="photo-bouteille">
+        </div>
+        <div class="infos-vin">
+          <div class="tags-vin">
+            <span class="tag tag-rouge">Rouge</span>
+            <span class="tag tag-pays">🇮🇹 Italie – Sicile</span>
+            <span class="tag tag-cepage">Nero d'Avola</span>
+          </div>
+          <h2>Tosone Nero d'Avola 2021</h2>
+          <h3>1. Identité</h3>
+          <p><strong>Pays / région :</strong> Italie – Sicile</p>
+          <p><strong>Cépage :</strong> Nero d'Avola</p>
+          <p><strong>Style :</strong> Solaire, puissant, généreux</p>
+          <h3>2. Profil</h3>
+          <p>Ce 100% Nero d'Avola, cultivé principalement sur les collines de la Sicile occidentale (autour de Salemi et Santa Ninfa, entre 300 et 500 mètres d'altitude), passe généralement environ 8 mois en barriques..</p>
+          <p>Le style moderne comme ce Tosone cherche à dompter la fougue du cépage pour créer un vin immédiat, soyeux et extrêmement flatteur, a contrario le style traditionnel cherche à préserver l'identité pure du cépage et la fraîcheur du climat méditerranéen, sans le maquillage du bois.
+          Le style moderne donne des vins "gourmands" qui se suffisent presque à eux-mêmes (parfaits pour les amateurs de grands crus classés de Bordeaux modernes ou de vins du Nouveau Monde), tandis que le style traditionnel offre des vins plus digestes, taillés pour la table et très fidèles à l'identité historique de la Sicile.</p>
+          <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – N/a James Suckling – N/a Peak Wines</p>
+        </div>
+      </div>
+      <details>
+        <summary>3. Dégustation</summary>
+        <p><strong>Couleur :</strong> Rouge profond</p>
+        <p><strong>Nez :</strong> C'est une explosion de fruits très mûrs. On y trouve des notes puissantes de confiture de cerise noire, de mûre, de pruneau, le tout enveloppé par des arômes boisés et doux apportés par l'élevage (vanille, chocolat noir, cacao et une touche de réglisse).</p>
+        <p><strong>Bouche :</strong> C’est un vin opulent, charnu et très dense. Les tanins sont extrêmement souples et fondus. Il se distingue par une attaque ronde, presque suave (une légère sucrosité perçue qui adoucit l'ensemble), avec une acidité discrète. 
+          Il titre généralement autour de 14,5% vol., mais l'alcool est enveloppé par la richesse du fruit.</p>
+      </details>
+      <details>
+        <summary>4. Infos techniques</summary>
+        <p><strong>Vinification :</strong> 8 mois en barrique</p>
+        <p><strong>Classification :</strong> Sicilia DOC</p>
+        <p><strong>Garde :</strong> 3–7 ans</p>
+        <p><strong>Carafage :</strong> 1h minimum</p>
+        <p><strong>Température :</strong> 16–18°C</p>
+        <p><strong>Accords mets :</strong> viandes grillées, Pâtes et sauces riches, fromages affiné et corsé</p>
+      </details>
+     
+    </div>
+
+    <!-- 14. Domaine de l'Envol Pinot gris 2024 -->
+    <div class="vin"
+         data-couleur="blanc"
+         data-pays="France"
+         data-cepage="Pinot gris"
+         data-region="Alsace"
+         data-style="Granite Aromatique fruité"
+         data-statut="cave"
+         data-stock="6">
+      <div class="entete-vin">
+        <div class="zone-photo">
+          <img src="images/envolpinotgris.jpg" alt="Orpheus & Raven n°7 Pinotage" class="photo-bouteille">
+        </div>
+        <div class="infos-vin">
+          <div class="tags-vin">
+            <span class="tag tag-blanc">blanc</span>
+            <span class="tag tag-pays">🇫🇷 France</span>
+            <span class="tag tag-cepage">Pinot gris</span>
+          </div>
+          <h2>Domaine de l'Envol Pinot gris 2024</h2>
+          <h3>1. Identité</h3>
+          <p><strong>Pays / région :</strong> France - Alsace</p>
+          <p><strong>Cépage :</strong> Pinot gris</p>
+          <p><strong>Style :</strong> Aromatique, frais</p>
+          <h3>2. Profil</h3>
+          <p>Pinot gris sec mais pas lourd.</p>
+          <p>Encore jeune, il posséde pour le momennt un profil aromatique. Avec le temps, le coté granit pourra apporter un peu de tension minérale.</p>
+          <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – N/a James Suckling – N/a Peak Wines</p>
+        </div>
+      </div>
+      <details>
+        <summary>3. Dégustation</summary>
+        <p><strong>Couleur :</strong> (à compléter)</p>
+        <p><strong>Nez :</strong> A Complèter</p>
+        <p><strong>Bouche :</strong> A complèter</p>
+      </details>
+      <details>
+        <summary>4. Infos techniques</summary>
+        <p><strong>Vinification :</strong> a complèter</p>
+        <p><strong>Classification :</strong> (à compléter)</p>
+        <p><strong>Garde :</strong> 6–10 ans</p>
+        <p><strong>Carafage :</strong> non</p>
+        <p><strong>Température :</strong> 9–12°C</p>
+        <p><strong>Accords mets :</strong> Plats crémeux, champignons, plats épicés</p>
+      </details>
+     
+    </div>
+
+    <!-- 15. Saint Véran par Stéphanie Saumaize -->
+    <div class="vin"
+         data-couleur="blanc"
+         data-pays="France"
+         data-cepage="Chardonnay"
+         data-region="Sud Maconnais Bourgogne"
+         data-style="Frais fruité"
+         data-statut="cave"
+         data-stock="6">
+      <div class="entete-vin">
+        <div class="zone-photo">
+          <img src="images/stveran.webp" alt="St véran" class="photo-bouteille">
+        </div>
+        <div class="infos-vin">
+          <div class="tags-vin">
+            <span class="tag tag-blanc">Blanc</span>
+            <span class="tag tag-pays">🇫🇷 France – Sud Maconnais Bourgogne</span>
+            <span class="tag tag-cepage">Chardonnay</span>
+          </div>
+          <h2>Saint Véran par Stéphanie Saumaize</h2>
+          <h3>1. Identité</h3>
+          <p><strong>Pays / région :</strong> France – Sud Maconnais Bourgogne</p>
+          <p><strong>Cépage :</strong> Chardonnay</p>
+          <p><strong>Style :</strong> Soyeux, pur, équilibré</p>
+          <h3>2. Profil</h3>
+          <p>Produit dans le sud de la Bourgogne (Mâconnais) par une vigneronne de grand talent, cette cuvée est un 100% Chardonnay qui allie la rondeur bourguignonne à une superbe tension..</p>
+          <p>Stéphanie Saumaize signe ici un Saint-Véran d'une grande élégance. Le nez s'ouvre sur des notes de fleurs blanches, d'amande fraîche et une touche de fruits jaunes (pêche). La bouche se distingue par sa texture : c'est charnu et enveloppant, mais immédiatement soutenu par une belle fraîcheur calcaire qui évite toute lourdeur. 
+            La finale est nette, sur des notes subtilement briochées et une fine minéralisante..</p>
+          <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – N/a James Suckling – N/a Peak Wines</p>
+        </div>
+      </div>
+      <details>
+        <summary>3. Dégustation</summary>
+        <p><strong>Couleur :</strong> (à compléter)</p>
+        <p><strong>Nez :</strong> A complèter</p>
+        <p><strong>Bouche :</strong> A Complèter</p>
+      </details>
+      <details>
+        <summary>4. Infos techniques</summary>
+        <p><strong>Vinification :</strong> (à compléter)</p>
+        <p><strong>Classification :</strong> (à compléter)</p>
+        <p><strong>Garde :</strong> 8–10 ans</p>
+        <p><strong>Carafage :</strong> non</p>
+        <p><strong>Température :</strong> 10–12°C</p>
+        <p><strong>Accords mets :</strong> Poisson</p>
+      </details>
+      
+    </div>
+
+    <!-- 16. Domaine de la Robinière - Raimbault "Bel-air" Vouvray 2023 -->
+    <div class="vin"
+         data-couleur="blanc"
+         data-pays="France"
+         data-cepage="Chenin Blanc"
+         data-region="Loire"
+         data-style="Ciselé, minéral, équilibré"
+         data-statut="cave"
+         data-stock="5">
+      <div class="entete-vin">
+        <div class="zone-photo">
+          <img src="images/vouvray2023.webp" alt="Vouvray aoc 2023" class="photo-bouteille">
+        </div>
+        <div class="infos-vin">
+          <div class="tags-vin">
+            <span class="tag tag-blanc">blanc</span>
+            <span class="tag tag-pays">🇫🇷 France – Loire</span>
+            <span class="tag tag-cepage">Chenin Blanc</span>
+          </div>
+          <h2>Domaine de la Robinière - Raimbault "Bel-air" Vouvray 2023</h2>
+          <h3>1. Identité</h3>
+          <p><strong>Pays / région :</strong> Loire</p>
+          <p><strong>Cépage :</strong> Chenin Blanc</p>
+          <p><strong>Style :</strong> Fraicheur, minéralité, fruité</p>
+          <h3>2. Profil</h3>
+          <p>Ce vin est une expression classique et vibrante du cépage Chenin Blanc, né sur les sols calcaires (tuffeau) et de silex de la Touraine..</p>
+          <p>Ce millésime 2023 offre un profil très pur, axé sur les fruits à chair blanche (poire, pomme granny) et des notes de verveine. En bouche, c'est l'équilibre typique du Vouvray sec : une attaque droite, une tension minérale saline très salivante due au terroir de silex, et une finale fine qui s'étire sur les agrumes frais. Un blanc d'une grande fraîcheur, parfait pour réveiller les papilles..</p>
+          <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – N/a James Suckling – N/a Peak Wines</p>
+        </div>
+      </div>
+      <details>
+        <summary>3. Dégustation</summary>
+        <p><strong>Couleur :</strong> A complèter</p>
+        <p><strong>Nez :</strong> A complèter</p>
+        <p><strong>Bouche :</strong> A compléter</p>
+      </details>
+      <details>
+        <summary>4. Infos techniques</summary>
+        <p><strong>Vinification :</strong> (à compléter)</p>
+        <p><strong>Classification :</strong> Vouvray AOC</p>
+        <p><strong>Garde :</strong> 5–10 ans</p>
+        <p><strong>Carafage :</strong> non</p>
+        <p><strong>Température :</strong> 10–12°C</p>
+        <p><strong>Accords mets :</strong> a complèter</p>
+      </details>
+      <details>
+        <summary>5. Journal personnel</summary>
+        <p><strong>Date de dégustation :</strong> 23 mai 2026</p>
+        <p><strong>Occasion :</strong> 1ére bouteille</p>
+        <p><strong>Avec quoi :</strong> Apéro</p>
+        <p><strong>Ressenti global :</strong> Vin frais, fort goût de pommes, agréable</p>
+        <p><strong>Évolution dans le verre :</strong> pas notable</p>
+        <p><strong>Note personnelle :</strong> Ouvrir une 2e bouteille avec accompagnement et température plus basse</p>
+      </details>
+    </div>
+
+<!-- 17. Nativ Eremo San Quirico 2019 -->
+    <div class="vin"
+         data-couleur="rouge"
+         data-pays="Italie"
+         data-cepage="Aglianico"
+         data-region="Campanie"
+         data-style="Vieilles vignes, Maturité, Opulence"
+         data-statut="cave"
+         data-stock="3">
+      <div class="entete-vin">
+        <div class="zone-photo">
+          <img src="images/eremo.png" alt="Nativ Eremo San Quirico 2019" class="photo-bouteille">
+        </div>
+        <div class="infos-vin">
+          <div class="tags-vin">
+            <span class="tag tag-rouge">Rouge</span>
+            <span class="tag tag-pays">🇮🇹 Italie – Campanie</span>
+            <span class="tag tag-cepage">Aglianico</span>
+          </div>
+          <h2>Nativ Eremo San Quirico 2019</h2>
+          <h3>1. Identité</h3>
+          <p><strong>Pays / région :</strong> Campanie</p>
+          <p><strong>Cépage :</strong> Aglianico</p>
+          <p><strong>Style :</strong> Vieilles vignes, Maturité, Opulence</p>
+          <h3>2. Profil</h3>
+          <p>Le est la grande cuvée emblématique de la maison Nativ, souvent considérée comme leur "vaisseau amiral".</p>
+          <p>Ce vin est issu d'une petite parcelle située à Taurasi, sur des sols volcaniques, où les vignes d'Aglianico ont pour certaines plus de 150 ans. Ce sont des rescapées du phylloxéra (un insecte qui a ravagé le vignoble européen au XIXe siècle). Ces vieilles vignes produisent très peu de grappes, mais le jus obtenu est d'une richesse aromatique incroyable.</p>
+          <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – N/a James Suckling – N/a Peak Wines</p>
+        </div>
+      </div>
+      <details>
+        <summary>3. Dégustation</summary>
+        <p><strong>Couleur :</strong> La robe est presque noire, impénétrable, avec des reflets violacés denses.</p>
+        <p><strong>Nez :</strong> C'est une explosion de fruits noirs confiturés (crème de cassis, mûre sauvage, cerise noire) mêlée à des notes très gourmandes d'élevage : vanille, chocolat noir, café torréfié, noix de coco et une pointe de tabac doux.</p>
+        <p><strong>Bouche :</strong> C'est un vin extrêmement dense, corsé et "voluptueux". La texture est presque sirupeuse (sans être lourde), tapissant le palais. Les tanins de l'Aglianico sont bien là mais ils sont totalement enrobés par la richesse du fruit et le boisé. La finale est longue, chaleureuse (le vin titre généralement autour de 14,5% à 15%) et marquée par des touches d'épices douces.</p>
+      </details>
+      <details>
+        <summary>4. Infos techniques</summary>
+        <p><strong>Vinification :</strong> Le vin passe 12 mois en barriques neuves de chêne français. Le bois est ici un acteur majeur du profil du vin, apportant beaucoup de gourmandise et de structure.</p>
+        <p><strong>Classification :</strong> Irpinia Campi Taurasini DOC</p>
+        <p><strong>Garde :</strong> 8–10 ans</p>
+        <p><strong>Carafage :</strong> 2h+, évolution dans le verre recommandée</p>
+        <p><strong>Température :</strong> 16–18°C</p>
+        <p><strong>Accords mets :</strong> Viande rouge, plats italiens typiques (ragù), magret de canard </p>
+      </details>
+      
+    </div>
+
+    <!-- 18. Nativ Blue Onice 2020 -->
+    <div class="vin"
+         data-couleur="rouge"
+         data-pays="Italie"
+         data-cepage="Aglianico"
+         data-region="Piémont"
+         data-style="Puissant, structuré, boisé et minéral"
+         data-statut="cave"
+         data-stock="3">
+      <div class="entete-vin">
+        <div class="zone-photo">
+          <img src="images/Blueonice.png" alt="Nativ Blue Onice 2020" class="photo-bouteille">
+        </div>
+        <div class="infos-vin">
+          <div class="tags-vin">
+            <span class="tag tag-rouge">Rouge</span>
+            <span class="tag tag-pays">🇮🇹 Italie – Campanie</span>
+            <span class="tag tag-cepage">Aglianico</span>
+          </div>
+          <h2>Nativ Blue Onice 2020</h2>
+          <h3>1. Identité</h3>
+          <p><strong>Pays / région :</strong> Campanie</p>
+          <p><strong>Cépage :</strong> Aglianico</p>
+          <p><strong>Style :</strong> Puissant, structuré, boisé et minéral</p>
+          <h3>2. Profil</h3>
+          <p>L'Aglianico est souvent surnommé le « Barolo du Sud » pour sa capacité à donner des vins puissants et bâtis pour la garde..</p>
+          <p>un vin de caractère, plus complexe, corpulent et boisé, avec du relief en bouche et une structure tannique affirmée.</p>
+          <p><strong>Notes experts :</strong> N/a Wine Advocate – N/a Jancis Robinson – N/a James Suckling – N/a Peak Wines</p>
+        </div>
+      </div>
+      <details>
+        <summary>3. Dégustation</summary>
+        <p><strong>Couleur :</strong> Sombre, presque opaque</p>
+        <p><strong>Nez :</strong> C'est un vin intense marqué par les fruits noirs mûrs (cerise noire, prugna), complété par des notes d'élevage bien présentes comme les épices douces (poivre noir, réglisse), le cacao et une pointe torréfiée apportée par la barrique.</p>
+        <p><strong>Bouche :</strong> On est sur un vin corsé, dense, avec une matière riche. Le terroir volcanique et calcaire de l'Irpinia (vignes d'altitude) lui confère une belle colonne vertébrale acide et une minéralité qui étirent la finale, malgré des tanins bien serrés et enveloppants.</p>
+      </details>
+      <details>
+        <summary>4. Infos techniques</summary>
+        <p><strong>Vinification :</strong> (à compléter)</p>
+        <p><strong>Classification :</strong> Irpinia DOP</p>
+        <p><strong>Garde :</strong> 5–10 ans</p>
+        <p><strong>Carafage :</strong> 1h, évolution dans le verre recommandée</p>
+        <p><strong>Température :</strong> 16–18°C</p>
+        <p><strong>Accords mets :</strong> Viande rouge, plats italiens typiques (ragù), fromages affinés et puissants</p>
+      </details>
+      
+    </div>
+    
+  </div><!-- #cave -->
+
+  <div id="aucun-resultat">
+    <div class="emoji">🍷</div>
+    <p>Aucun vin ne correspond à votre recherche.</p>
+  </div>
+
+</div><!-- .main -->
+
+<script>
+  // ─── ÉTAT ────────────────────────────────────────────────────────────────
+  let filtreActif = { couleur: 'tous', pays: 'tous', cepage: 'tous', statut: 'tous', tri: 'defaut' };
+  // Ordre original des cartes pour le tri "par défaut"
+  const cave = document.getElementById('cave');
+  let ordreOriginal = Array.from(cave.querySelectorAll('.vin'));
+
+  // Charge les vins depuis vins.json quand la page est servie par un serveur web.
+  async function chargerVinsDepuisJson() {
+    const reponse = await fetch('vins.json', { cache: 'no-store' });
+    if (!reponse.ok) {
+      throw new Error(`Impossible de charger vins.json (${reponse.status})`);
+    }
+
+    const vins = await reponse.json();
+    if (!Array.isArray(vins)) {
+      throw new Error('Le fichier vins.json doit contenir une liste de vins.');
+    }
+
+    cave.innerHTML = vins.map(creerCarteVin).join('');
+    ordreOriginal = Array.from(cave.querySelectorAll('.vin'));
+  }
+
+  function texte(valeur, defaut = 'A compl&eacute;ter') {
+    if (valeur === undefined || valeur === null || String(valeur).trim() === '') return defaut;
+    return echapperHtml(String(valeur));
+  }
+
+  function echapperHtml(valeur) {
+    return valeur
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#039;');
+  }
+
+  function capitaliser(valeur) {
+    const v = String(valeur || '').trim();
+    return v ? v.charAt(0).toUpperCase() + v.slice(1) : '';
+  }
+
+  function drapeauPays(pays) {
+    const drapeaux = {
+      'Afrique du Sud': '🇿🇦',
+      'Allemagne': '🇩🇪',
+      'Argentine': '🇦🇷',
+      'Australie': '🇦🇺',
+      'Autriche': '🇦🇹',
+      'Belgique': '🇧🇪',
+      'Chili': '🇨🇱',
+      'Espagne': '🇪🇸',
+      'Etats-Unis': '🇺🇸',
+      'France': '🇫🇷',
+      'Italie': '🇮🇹',
+      'Nouvelle-Zelande': '🇳🇿',
+      'Portugal': '🇵🇹'
+    };
+    return drapeaux[pays] || '🍷';
+  }
+
+  function creerCarteVin(vin) {
+    const notes = vin.notes_experts || {};
+    const degustation = vin.degustation || {};
+    const technique = vin.technique || {};
+    const journal = vin.journal || {};
+    const couleur = texte(vin.couleur, '');
+    const pays = texte(vin.pays, '');
+    const region = texte(vin.region, '');
+    const cepage = texte(vin.cepage, '');
+    const statut = texte(vin.statut || 'cave', 'cave');
+    const stockJson = Number.parseInt(vin.stock, 10);
+    const stock = Number.isNaN(stockJson) ? 1 : stockJson;
+
+    return `
+    <div class="vin"
+         data-couleur="${couleur}"
+         data-pays="${pays}"
+         data-cepage="${cepage}"
+         data-region="${region}"
+         data-style="${texte(vin.style, '')}"
+         data-statut="${statut}"
+         data-stock="${stock}">
+      <div class="entete-vin">
+        <div class="zone-photo">
+          <img src="${texte(vin.photo, '')}" alt="${texte(vin.nom, 'Vin')}" class="photo-bouteille">
+        </div>
+        <div class="infos-vin">
+          <div class="tags-vin">
+            <span class="tag tag-${couleur}">${texte(capitaliser(vin.couleur), '')}</span>
+            <span class="tag tag-pays">${drapeauPays(vin.pays)} ${pays}${region ? ' - ' + region : ''}</span>
+            <span class="tag tag-cepage">${cepage}</span>
+          </div>
+          <h2>${texte(vin.nom, 'Vin sans nom')}</h2>
+          <h3>1. Identit&eacute;</h3>
+          <p><strong>Pays / r&eacute;gion :</strong> ${region || pays}</p>
+          <p><strong>C&eacute;page :</strong> ${cepage}</p>
+          <p><strong>Style :</strong> ${texte(vin.style)}</p>
+          <h3>2. Profil</h3>
+          <p>${texte(vin.profil)}</p>
+          <p><strong>Notes experts :</strong> ${texte(notes.wine_advocate, 'N/a')} Wine Advocate - ${texte(notes.jancis_robinson, 'N/a')} Jancis Robinson - ${texte(notes.james_suckling, 'N/a')} James Suckling - ${texte(notes.peak_wines, 'N/a')} Peak Wines</p>
+        </div>
+      </div>
+      <details>
+        <summary>3. D&eacute;gustation</summary>
+        <p><strong>Couleur :</strong> ${texte(degustation.couleur)}</p>
+        <p><strong>Nez :</strong> ${texte(degustation.nez)}</p>
+        <p><strong>Bouche :</strong> ${texte(degustation.bouche)}</p>
+      </details>
+      <details>
+        <summary>4. Infos techniques</summary>
+        <p><strong>Vinification :</strong> ${texte(technique.vinification)}</p>
+        <p><strong>Classification :</strong> ${texte(technique.classification)}</p>
+        <p><strong>Garde :</strong> ${texte(technique.garde)}</p>
+        <p><strong>Carafage :</strong> ${texte(technique.carafage)}</p>
+        <p><strong>Temp&eacute;rature :</strong> ${texte(technique.temperature)}</p>
+        <p><strong>Accords mets :</strong> ${texte(technique.accords)}</p>
+      </details>
+      <details>
+        <summary>5. Journal personnel</summary>
+        <p><strong>Date de d&eacute;gustation :</strong> ${texte(journal.date)}</p>
+        <p><strong>Occasion :</strong> ${texte(journal.occasion)}</p>
+        <p><strong>Avec quoi :</strong> ${texte(journal.avec_quoi)}</p>
+        <p><strong>Ressenti global :</strong> ${texte(journal.ressenti)}</p>
+        <p><strong>&Eacute;volution dans le verre :</strong> ${texte(journal.evolution_verre)}</p>
+        <p><strong>Note personnelle :</strong> ${texte(journal.note_personnelle)}</p>
+      </details>
+    </div>`;
+  }
+
+  // ─── CÉPAGE DYNAMIQUE ────────────────────────────────────────────────────
+  function genererChipsCepage() {
+    const cepages = new Set();
+    document.querySelectorAll('#cave .vin').forEach(vin => {
+      const c = (vin.dataset.cepage || '').trim();
+      if (c) cepages.add(c);
+    });
+    const container = document.getElementById('chips-cepage');
+    [...cepages].sort().forEach(c => {
+      const btn = document.createElement('button');
+      btn.className = 'chip';
+      btn.dataset.filtre = 'cepage';
+      btn.dataset.valeur = c;
+      btn.textContent = c;
+      container.appendChild(btn);
+    });
+    bindChips();
+  }
+
+  function viderChipsCepage() {
+    const container = document.getElementById('chips-cepage');
+    container.querySelectorAll('.chip[data-filtre="cepage"]:not([data-valeur="tous"])').forEach(chip => chip.remove());
+  }
+
+  // ─── BIND CHIPS ──────────────────────────────────────────────────────────
+  function bindChips() {
+    document.querySelectorAll('.chip').forEach(chip => {
+      chip.onclick = null;
+      chip.addEventListener('click', () => {
+        const filtre = chip.dataset.filtre;
+        const valeur = chip.dataset.valeur;
+        filtreActif[filtre] = valeur;
+        document.querySelectorAll(`.chip[data-filtre="${filtre}"]`).forEach(c => {
+          c.classList.toggle('actif', c.dataset.valeur === valeur);
+        });
+        majBadge();
+        appliquerFiltres(); // ← application immédiate
+      });
+    });
+  }
+
+  // ─── BADGE COMPTEUR ──────────────────────────────────────────────────────
+  function majBadge() {
+    const nonDefaut = ['couleur','pays','cepage','statut','tri'].filter(k => filtreActif[k] !== 'tous' && filtreActif[k] !== 'defaut');
+    const badge = document.getElementById('filtre-badge');
+    const btn   = document.getElementById('btn-filtrer');
+    if (nonDefaut.length > 0) {
+      badge.textContent = nonDefaut.length;
+      badge.classList.add('visible');
+      btn.classList.add('has-filtres');
+    } else {
+      badge.classList.remove('visible');
+      btn.classList.remove('has-filtres');
+    }
+  }
+
+  // ─── FILTRE & TRI ────────────────────────────────────────────────────────
+  function appliquerFiltres() {
+    const terme = document.getElementById('recherche').value.toLowerCase().trim();
+    let vins = Array.from(document.querySelectorAll('#cave .vin'));
+    let visible = 0;
+
+    // Filtrage
+    vins.forEach(vin => {
+      const couleur = vin.dataset.couleur || '';
+      const pays    = vin.dataset.pays    || '';
+      const cepage  = vin.dataset.cepage  || '';
+      const statut  = vin.dataset.statut  || '';
+      const texte   = vin.textContent.toLowerCase();
+
+      const okCouleur   = filtreActif.couleur === 'tous' || couleur === filtreActif.couleur;
+      const okPays      = filtreActif.pays    === 'tous' || pays.includes(filtreActif.pays);
+      const okCepage    = filtreActif.cepage  === 'tous' || cepage.toLowerCase().includes(filtreActif.cepage.toLowerCase());
+      const okStatut    = filtreActif.statut  === 'tous' || statut === filtreActif.statut;
+      const okRecherche = terme === '' || texte.includes(terme);
+
+      const ok = okCouleur && okPays && okCepage && okStatut && okRecherche;
+      vin.classList.toggle('masque', !ok);
+      if (ok) visible++;
+    });
+
+    // Tri
+    const visibles = vins.filter(v => !v.classList.contains('masque'));
+    const tries = [...visibles];
+
+    if (filtreActif.tri === 'alpha-asc') {
+      tries.sort((a, b) => (a.querySelector('h2')?.textContent || '').localeCompare(b.querySelector('h2')?.textContent || '', 'fr'));
+    } else if (filtreActif.tri === 'alpha-desc') {
+      tries.sort((a, b) => (b.querySelector('h2')?.textContent || '').localeCompare(a.querySelector('h2')?.textContent || '', 'fr'));
+    } else if (filtreActif.tri === 'pays') {
+      tries.sort((a, b) => (a.dataset.pays || '').localeCompare(b.dataset.pays || '', 'fr'));
+    } else if (filtreActif.tri === 'cepage') {
+      tries.sort((a, b) => (a.dataset.cepage || '').localeCompare(b.dataset.cepage || '', 'fr'));
+    } else {
+      // Ordre original
+      tries.sort((a, b) => ordreOriginal.indexOf(a) - ordreOriginal.indexOf(b));
+    }
+
+    tries.forEach(v => cave.appendChild(v));
+
+    // Compteur
+    const total = vins.length;
+    document.getElementById('compteur').textContent =
+      visible === total
+        ? `${total} bouteille${total > 1 ? 's' : ''}`
+        : `${visible} / ${total} bouteille${total > 1 ? 's' : ''}`;
+
+    document.getElementById('aucun-resultat').style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  // ─── RESET ───────────────────────────────────────────────────────────────
+  function resetFiltres() {
+    filtreActif = { couleur: 'tous', pays: 'tous', cepage: 'tous', statut: 'tous', tri: 'defaut' };
+    document.getElementById('recherche').value = '';
+    document.querySelectorAll('.chip').forEach(c => {
+      c.classList.toggle('actif', c.dataset.valeur === 'tous' || c.dataset.valeur === 'defaut');
+    });
+    majBadge();
+    appliquerFiltres();
+  }
+
+  // ─── MODALE ──────────────────────────────────────────────────────────────
+  const overlay = document.getElementById('modal-overlay');
+
+  document.getElementById('btn-filtrer').addEventListener('click', () => {
+    overlay.classList.add('open');
+  });
+
+  function fermerModal() {
+    overlay.classList.remove('open');
+  }
+
+  document.getElementById('modal-close').addEventListener('click', fermerModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) fermerModal(); });
+
+  document.getElementById('btn-modal-appliquer').addEventListener('click', () => {
+    appliquerFiltres();
+    fermerModal();
+  });
+
+  document.getElementById('btn-modal-reset').addEventListener('click', () => {
+    resetFiltres();
+  });
+
+  document.getElementById('reset-filtres').addEventListener('click', resetFiltres);
+
+  // Recherche en temps réel
+  document.getElementById('recherche').addEventListener('input', appliquerFiltres);
+
+  // Fermer avec Echap
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') fermerModal(); });
+
+  // ─── PHOTOS MANQUANTES ───────────────────────────────────────────────────
+  function afficherPhotosManquantes() {
+    document.querySelectorAll('.photo-bouteille').forEach(photo => {
+      const remplacer = () => {
+        const ph = document.createElement('div');
+        ph.className = 'photo-a-ajouter';
+        ph.textContent = 'Photo à ajouter';
+        photo.replaceWith(ph);
+      };
+      photo.onerror = remplacer;
+      if (photo.complete && photo.naturalWidth === 0) remplacer();
+    });
+  }
+
+  // ─── BADGES STATUT & STOCK ───────────────────────────────────────────────
+  function injecterBadges() {
+    document.querySelectorAll('#cave .vin').forEach(vin => {
+      const statut = vin.dataset.statut || 'cave';
+      const stock  = vin.dataset.stock  || '1';
+      const tagsDiv = vin.querySelector('.tags-vin');
+      if (!tagsDiv) return;
+
+      const tagStatut = document.createElement('span');
+      tagStatut.className = statut === 'bu' ? 'tag tag-bu' : 'tag tag-cave';
+      tagStatut.textContent = statut === 'bu' ? '✓ Bu' : '🏠 En cave';
+      tagsDiv.appendChild(tagStatut);
+
+      if (statut !== 'bu') {
+        const badge = document.createElement('span');
+        const n = parseInt(stock, 10) || 0;
+        badge.className = 'badge-stock' + (n === 0 ? ' stock-zero' : '');
+        badge.textContent = `🍾 ${n} btl`;
+        tagsDiv.appendChild(badge);
+      }
+    });
+  }
+
+  // ─── INIT ─────────────────────────────────────────────────────────────────
+  async function initialiserCave() {
+    try {
+      await chargerVinsDepuisJson();
+    } catch (erreur) {
+      console.warn('Chargement de vins.json impossible, affichage des cartes HTML existantes.', erreur);
+    }
+
+    afficherPhotosManquantes();
+    injecterBadges();
+    viderChipsCepage();
+    genererChipsCepage();
+    appliquerFiltres();
+  }
+
+  initialiserCave();
+</script>
 </body>
 </html>
