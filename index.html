@@ -2,28 +2,288 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Vinea</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accueil - Ma Cave</title>
+
+  <style>
+    :root {
+      --bg: #0d0f12;
+      --card: rgba(255,255,255,0.05);
+      --border: rgba(255,255,255,0.08);
+      --text: #f3f3f3;
+      --muted: #b8c0cc;
+      --gold: #d4af37;
+      --shadow: rgba(0,0,0,0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(122, 92, 255, 0.15), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(212, 175, 55, 0.12), transparent 35%),
+        linear-gradient(180deg, #0b0d10 0%, #15191f 100%);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?q=80&w=1600&auto=format&fit=crop') center/cover;
+      opacity: 0.08;
+      z-index: -2;
+    }
+
+    .blur {
+      position: fixed;
+      inset: 0;
+      backdrop-filter: blur(6px);
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: auto;
+      padding: 40px 24px 80px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 80px 20px 50px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 4rem;
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+    }
+
+    .hero p {
+      margin: 24px auto 0;
+      max-width: 850px;
+      color: var(--muted);
+      font-size: 1.15rem;
+      line-height: 1.8;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 35px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      padding: 18px 24px;
+      border-radius: 18px;
+      min-width: 150px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 30px var(--shadow);
+    }
+
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    .stat-label {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .section-title {
+      margin: 70px 0 30px;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      padding: 28px;
+      min-height: 320px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      text-decoration: none;
+      color: white;
+      transition: transform 0.25s ease, border 0.25s ease;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(212, 175, 55, 0.35);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.65) 100%);
+      z-index: 1;
+    }
+
+    .card-image {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.75;
+      transition: transform 0.4s ease;
+    }
+
+    .card:hover .card-image {
+      transform: scale(1.05);
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .card p {
+      margin-top: 12px;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.6;
+      font-size: 0.98rem;
+    }
+
+    .card-tag {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.82rem;
+      width: fit-content;
+    }
+
+    .footer {
+      margin-top: 70px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding-top: 50px;
+      }
+
+      .hero h1 {
+        font-size: 2.7rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .card {
+        min-height: 280px;
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <div class="overlay"></div>
+  <div class="blur"></div>
 
-<header class="topbar">
-  <h1>Vinea</h1>
-</header>
+  <div class="container">
+    <section class="hero">
+      <h1>Vinea</span></h1>
 
-<nav class="bottom-nav">
-  <a href="index.html">Accueil</a>
-  <a href="cave.html">Cave</a>
-  <a href="degustation.html">Dégustation</a>
-  <a href="atlas/index.html">Atlas</a>
-</nav>
+      <p>
+        Un espace personnel pour explorer les vins et découvrir le meilleur moment pour ouvrir chaque bouteille.
+      </p>
 
-<main>
-  <h2>Accueil</h2>
-  <p>Ton hub vin 🍷</p>
-</main>
+    </section>
 
-<script src="js/app.js"></script>
+    <h2 class="section-title">Explorer la cave</h2>
+
+    <section class="cards-grid">
+
+      <a href="Ma cave.html" class="card">
+        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?q=80&w=1400&auto=format&fit=crop');"></div>
+
+        <div class="card-content">
+          <div class="card-icon">🍷</div>
+          <h2>Ma Cave</h2>
+          <p>
+            Parcourir les bouteilles, les notes personnelles,
+            les accords mets-vins et les profils de dégustation.
+          </p>
+
+          <div class="card-tag">Collection personnelle</div>
+        </div>
+      </a>
+
+      <a href="fenetrededégustation.html" class="card">
+        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=1400&auto=format&fit=crop');"></div>
+
+        <div class="card-content">
+          <div class="card-icon">⏳</div>
+          <h2>Fenêtres de dégustation</h2>
+          <p>
+            Suivre l'évolution des bouteilles,
+            identifier les périodes idéales d'ouverture et de garde.
+          </p>
+
+          <div class="card-tag">Évolution & garde</div>
+        </div>
+      </a>
+
+    </section>
+
+    <div class="footer">
+      Chaque bouteille raconte une histoire.
+      Cette cave est pensée comme un espace vivant mêlant mémoire,
+      découverte et plaisir du vin.
+    </div>
+  </div>
 </body>
 </html>
