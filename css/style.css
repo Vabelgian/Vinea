@@ -73,13 +73,13 @@ body{
 }
 
 .cave{
-    background-image:url('assets/cave.jpg');
+    background-image:url('..assets/cave.jpg');
 }
 
 .degustation{
-    background-image:url('assets/degustation.jpg');
+    background-image:url('..assets/degustation.jpg');
 }
 
 .atlas{
-    background-image:url('assets/atlas.jpg');
+    background-image:url('..assets/atlas.jpg');
 }
