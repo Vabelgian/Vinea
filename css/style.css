@@ -1,38 +1,85 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f7f5f2;
-  color: #1e1e1e;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-.topbar {
-  padding: 12px;
-  background: white;
-  border-bottom: 1px solid #ddd;
-  position: sticky;
-  top: 0;
+body{
+    font-family:Arial, sans-serif;
+    background:#f7f5f2;
+    color:white;
 }
 
-main {
-  padding: 16px;
-  padding-bottom: 80px;
+.home-container{
+    padding:24px 16px;
 }
 
-/* navigation mobile */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: white;
-  display: flex;
-  justify-content: space-around;
-  padding: 10px 0;
-  border-top: 1px solid #ddd;
+.hero{
+    text-align:center;
+    margin-bottom:30px;
 }
 
-.bottom-nav a {
-  text-decoration: none;
-  color: #333;
-  font-size: 14px;
+.hero h1{
+    color:#6b1126;
+    font-size:2.8rem;
+    margin-bottom:8px;
+}
+
+.hero p{
+    color:#666;
+    font-size:1rem;
+}
+
+.menu-cards{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+}
+
+.card{
+    position:relative;
+    height:160px;
+    border-radius:20px;
+    overflow:hidden;
+    text-decoration:none;
+    background-size:cover;
+    background-position:center;
+}
+
+.card .overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.45);
+}
+
+.card .content{
+    position:relative;
+    z-index:2;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.card span{
+    font-size:2rem;
+    margin-bottom:10px;
+}
+
+.card h2{
+    font-size:1.8rem;
+    font-weight:600;
+}
+
+.cave{
+    background-image:url('assets/cave.jpg');
+}
+
+.degustation{
+    background-image:url('assets/degustation.jpg');
+}
+
+.atlas{
+    background-image:url('assets/atlas.jpg');
 }
