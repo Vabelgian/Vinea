@@ -1,1 +1,131 @@
+[
+  {
+    "statut": "degust",
+    "annee_degustation": 2025,
+    "titre": "Vinhas de Xisto Tinto Reserva 2022",
+    "couleur": "rouge",
+    "lieu_achat": "bourse du vin",
+    "commentaire": "Un vin portugais solaire qui est fougeux.",
+    "tags": ["Repas de Noël", "Première bouteille"],
+    "date_ouverture": "25 juillet 2025",
+    "note_degustation": "A complèter.",
+    "tags_ouverture": ["Noël", "Évolutif"]
+  },
+  {
+    "statut": "degust",
+    "annee_degustation": 2025,
+    "titre": "Ridgeback Cabernet Franc",
+    "couleur": "rouge",
+    "lieu_achat": "Vivino",
+    "commentaire": "Un Cabernet Franc d'Afrique du Sud élégant, aux arômes de poivron rouge et de fraise. Première rencontre prometteuse avec ce producteur.",
+    "tags": ["Repas de Noël", "Première bouteille"],
+    "date_ouverture": "25 décembre 2025",
+    "note_degustation": "Robe rubis brillant. Nez ouvert sur la framboise et la violette, légère touche herbacée. Bouche souple, tanins fins. Un plaisir pour Noël.",
+    "tags_ouverture": ["Noël", "Évolutif"]
+  },
+  {
+    "statut": "degust",
+    "annee_degustation": 2026,
+    "titre": "Ridgeback Cabernet Franc",
+    "couleur": "rouge",
+    "lieu_achat": "vivino",
+    "commentaire": "Deuxième bouteille de ce lot sud-africain.",
+    "tags": ["Deuxième bouteille", "Lot"],
+    "date_ouverture": "14 mai 2026",
+    "note_degustation": "Les tanins se sont encore fondus. Le fruit est plus rond qu'en décembre dernier. Très belle évolution.",
+    "tags_ouverture": ["Printemps", "Plus mûr"]
+  },
+  {
+    "statut": "degust",
+    "annee_degustation": 2025,
+    "titre": "Salvatore M Barbaresco 2021",
+    "couleur": "rouge",
+    "lieu_achat": "bourse du vin",
+    "commentaire": "Barbaresco ambitieux d'un millésime solaire. Nécessite clairement du temps — à revoir autour de 2030.",
+    "tags": ["Fin d'année", "Trop jeune"],
+    "date_ouverture": "28 décembre 2025",
+    "note_degustation": "Nez fermé, tanins serrés et astringents. Le potentiel est là mais le vin se défend. Carafe 3h minimum.",
+    "tags_ouverture": ["Trop jeune"]
+  },
+  {
+    "statut": "degust",
+    "annee_degustation": 2026,
+    "titre": "Orpheus & The Raven n7 Pinotage 2022",
+    "couleur": "rouge",
+    "lieu_achat": "vivino",
+    "commentaire": "Pinotage sud-africain de caractère. Dégustation analytique prévue en contexte BBQ.",
+    "tags": ["Festif", "BBQ"],
+    "date_ouverture": "Été 2026 — à venir",
+    "note_degustation": "",
+    "tags_ouverture": []
+  },
+  {
+    "statut": "degust",
+    "annee_degustation": 2026,
+    "titre": "Vouvray AOC 2023",
+    "couleur": "blanc",
+    "lieu_achat": "salon",
+    "commentaire": "Bouteille achetée au salon du vin de Jurbise. 1ère bouteille d'une caisse de 6.",
+    "tags": ["Loire", "Garde moyenne"],
+    "date_ouverture": "23 mai 2026",
+    "note_degustation": "Tes notes de dégustation ici.",
+    "tags_ouverture": ["Loire"]
+  },
+  {
+    "statut": "degust",
+    "annee_degustation": 2026,
+    "titre": "Vinhas de Xisto Tinto Reserva 2022",
+    "couleur": "rouge",
+    "lieu_achat": "bourse du vin",
+    "commentaire": "Bouteille achetée au salon du vin de Jurbise. 1ère bouteille d'une caisse de 6.",
+    "tags": ["Loire", "Garde moyenne"],
+    "date_ouverture": "29 mai 2026",
+    "note_degustation": "Tes notes de dégustation ici.",
+    "tags_ouverture": ["Loire"]
+  },
+  {
+    "statut": "planification",
+    "annee_affichage": 2028,
+    "titre": "Podere Il Carnasciale – Il Carnasciale 2020",
+    "couleur": "rouge",
+    "lieu_achat": "Peak Wines",
+    "fenetre": "Apogée estimée : 2028 – 2030",
+    "commentaire": "Cépage rarissime, le Caberlot. Patience nécessaire. Ne pas toucher avant 2028.",
+    "tags": ["Caberlot", "Toscane", "Grande garde"],
+    "badge": { "type": "blue", "icone": "garde", "texte": "Longue garde" }
+  },
+  {
+    "statut": "planification",
+    "annee_affichage": 2028,
+    "titre": "Fontanafredda Barolo Serralunga d'Alba 2019",
+    "couleur": "rouge",
+    "lieu_achat": "vivino",
+    "fenetre": "Ouverture idéale : 2028",
+    "commentaire": "Devrait être à son apogée autour de 2028.",
+    "tags": ["Barolo"],
+    "badge": { "type": "green", "icone": "check", "texte": "Grand Repas" }
+  },
+  {
+    "statut": "planification",
+    "annee_affichage": 2026,
+    "titre": "St Véran",
+    "couleur": "blanc",
+    "lieu_achat": "salon",
+    "fenetre": "Apogée estimée : 2028 – 2030",
+    "commentaire": "A complèter.",
+    "tags": ["Caberlot", "Toscane", "Grande garde"],
+    "badge": { "type": "blue", "icone": "garde", "texte": "Longue garde" }
+  },
+  {
+    "statut": "planification",
+    "annee_affichage": 2026,
+    "titre": "Pinot gris Alsace",
+    "couleur": "blanc",
+    "lieu_achat": "salon",
+    "fenetre": "Apogée estimée : 2028 – 2030",
+    "commentaire": "Cépage rarissime, le Caberlot. Patience nécessaire. Ne pas toucher avant 2028.",
+    "tags": ["Automne", "Alsace", "vin de gastronomie"],
+    "badge": { "type": "blue", "icone": "garde", "texte": "Longue garde" }
+  }
+]
 
